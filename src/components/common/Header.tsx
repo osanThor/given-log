@@ -15,7 +15,7 @@ export default function Header() {
   }, [router]);
 
   return (
-    <header className="fixed top-0 left-0 flex items-center justify-between w-full px-6 py-3 bg-white border-b-2">
+    <header className="fixed top-0 left-0 flex items-center justify-between w-full px-6 py-3 bg-white border-b-2 h-14">
       <h1 className="text-lg font-medium text-blue-500">
         <Link href={"/"}>{"GIVEN'S LOG"}</Link>
       </h1>
@@ -87,3 +87,7 @@ export default function Header() {
     </header>
   );
 }
+
+export const HeaderSpacer = () => {
+  return <div className="h-14" />;
+};

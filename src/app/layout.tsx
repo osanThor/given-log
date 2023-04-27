@@ -1,6 +1,7 @@
-import Header from "@/components/common/Header";
+import Header, { HeaderSpacer } from "@/components/common/Header";
 import "./globals.css";
 import localFont from "next/font/local";
+import Container from "@/components/common/Container";
 
 // Font files can be colocated inside of `app`
 const pretendard = localFont({
@@ -52,7 +53,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={pretendard.className}>
         <Header />
-        {children}
+        <HeaderSpacer />
+        <Container>{children}</Container>
       </body>
     </html>
   );

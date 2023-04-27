@@ -1,3 +1,4 @@
+import Header from "@/components/common/Header";
 import "./globals.css";
 import localFont from "next/font/local";
 
@@ -49,7 +50,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={pretendard.className}>{children}</body>
+      <body className={pretendard.className}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

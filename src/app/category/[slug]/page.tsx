@@ -20,7 +20,7 @@ export function generateMetadata({ params }: Props) {
 export default function DeveloperPage({ params: { slug } }: Props) {
   return (
     <div>
-      <Title title={`${slug} page`} />
+      <Title title={`${slug} Logs`} />
       <List />
     </div>
   );

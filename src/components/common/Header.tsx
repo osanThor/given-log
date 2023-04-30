@@ -4,10 +4,11 @@ import Link from "next/link";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { GoThreeBars, GoX } from "react-icons/go";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function Header() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
@@ -22,25 +23,37 @@ export default function Header() {
         </h1>
         <nav className="hidden gap-4 text-sm uppercase md:flex ">
           <Link
-            className="font-medium text-gray-500 transition-colors hover:text-cyan-400"
+            className={classNames(
+              "font-medium text-gray-500 transition-colors hover:text-cyan-400",
+              { "!text-cyan-400": pathname === "/category/developer" }
+            )}
             href="/category/developer"
           >
             developer
           </Link>
           <Link
-            className="font-medium text-gray-500 transition-colors hover:text-cyan-400"
+            className={classNames(
+              "font-medium text-gray-500 transition-colors hover:text-cyan-400",
+              { "!text-cyan-400": pathname === "/category/life" }
+            )}
             href="/category/life"
           >
             life
           </Link>
           <Link
-            className="font-medium text-gray-500 transition-colors hover:text-cyan-400"
+            className={classNames(
+              "font-medium text-gray-500 transition-colors hover:text-cyan-400",
+              { "!text-cyan-400": pathname === "/about" }
+            )}
             href="/about"
           >
             about
           </Link>
           <Link
-            className="font-medium text-gray-500 transition-colors hover:text-cyan-400 "
+            className={classNames(
+              "font-medium text-gray-500 transition-colors hover:text-cyan-400",
+              { "!text-cyan-400": pathname === "/contact" }
+            )}
             href="/contact"
           >
             contact

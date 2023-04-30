@@ -12,7 +12,7 @@ const Array = [1, 2, 3, 4, 5, 6, 7, 8];
 
 export default function SlideList() {
   return (
-    <div className="w-full px-4 py-2 mb-10 ">
+    <div className="w-full py-2 mb-10 ">
       <Swiper
         slidesPerView={4}
         spaceBetween={32}

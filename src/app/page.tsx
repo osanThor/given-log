@@ -1,4 +1,5 @@
 import List from "@/components/board/List";
+import SlideList from "@/components/board/SlideList";
 import Title from "@/components/common/Title";
 
 export default function Home() {
@@ -7,7 +8,7 @@ export default function Home() {
       <Title title="📑 Latest Logs" />
       <List />
       <Title title="⭐️ Featured Logs" />
-      <List />
+      <SlideList />
     </>
   );
 }

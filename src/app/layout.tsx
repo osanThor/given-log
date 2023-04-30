@@ -3,6 +3,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import Container from "@/components/common/Container";
 import { Metadata } from "next";
+import Footer from "@/components/common/Footer";
 
 // Font files can be colocated inside of `app`
 const pretendard = localFont({
@@ -41,7 +42,7 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "GIVEN.LOG",
+  title: "GIVEN's LOG",
   description: "Front End Developer Blog",
   icons: {
     icon: "/favicon.ico",
@@ -59,6 +60,7 @@ export default function RootLayout({
         <Header />
         <HeaderSpacer />
         <Container>{children}</Container>
+        <Footer />
       </body>
     </html>
   );

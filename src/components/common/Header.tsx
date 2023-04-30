@@ -17,7 +17,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 z-50 flex items-center justify-center w-full px-6 py-3 bg-white border-b-2 h-14">
       <div className="container flex items-center justify-between ">
-        <h1 className="text-lg font-medium text-blue-500">
+        <h1 className="text-xl font-medium text-blue-500">
           <Link href={"/"}>{"GIVEN'S LOG"}</Link>
         </h1>
         <nav className="hidden gap-4 text-sm uppercase md:flex ">

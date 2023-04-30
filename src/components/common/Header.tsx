@@ -17,30 +17,30 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 z-50 flex items-center justify-center w-full px-6 py-3 bg-white border-b-2 h-14">
       <div className="container flex items-center justify-between ">
-        <h1 className="text-xl font-medium text-blue-500">
+        <h1 className="text-xl font-bold text-blue-500">
           <Link href={"/"}>{"GIVEN'S LOG"}</Link>
         </h1>
         <nav className="hidden gap-4 text-sm uppercase md:flex ">
           <Link
-            className="text-gray-700 transition-colors hover:text-cyan-400"
-            href="/developer"
+            className="font-medium text-gray-500 transition-colors hover:text-cyan-400"
+            href="/category/developer"
           >
             developer
           </Link>
           <Link
-            className="text-gray-700 transition-colors hover:text-cyan-400"
-            href="/life"
+            className="font-medium text-gray-500 transition-colors hover:text-cyan-400"
+            href="/category/life"
           >
             life
           </Link>
           <Link
-            className="text-gray-700 transition-colors hover:text-cyan-400"
+            className="font-medium text-gray-500 transition-colors hover:text-cyan-400"
             href="/about"
           >
             about
           </Link>
           <Link
-            className="text-gray-700 transition-colors hover:text-cyan-400 "
+            className="font-medium text-gray-500 transition-colors hover:text-cyan-400 "
             href="/contact"
           >
             contact
@@ -60,25 +60,25 @@ export default function Header() {
             )}
           >
             <Link
-              className="text-gray-700 transition-colors hover:text-cyan-400"
-              href="/developer"
+              className="font-medium text-gray-500 transition-colors hover:text-cyan-400"
+              href="/category/developer"
             >
               developer
             </Link>
             <Link
-              className="text-gray-700 transition-colors hover:text-cyan-400"
-              href="/life"
+              className="font-medium text-gray-500 transition-colors hover:text-cyan-400"
+              href="/category/life"
             >
               life
             </Link>
             <Link
-              className="text-gray-700 transition-colors hover:text-cyan-400"
+              className="font-medium text-gray-500 transition-colors hover:text-cyan-400"
               href="/about"
             >
               about
             </Link>
             <Link
-              className="text-gray-700 transition-colors hover:text-cyan-400"
+              className="font-medium text-gray-500 transition-colors hover:text-cyan-400"
               href="/contact"
             >
               contact

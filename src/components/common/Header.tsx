@@ -4,15 +4,15 @@ import Link from "next/link";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { GoThreeBars, GoX } from "react-icons/go";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
-  const router = useRouter();
+  const pathname = usePathname();
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     setToggle(false);
-  }, [router]);
+  }, [pathname]);
 
   return (
     <header className="fixed top-0 left-0 z-50 flex items-center justify-center w-full px-6 py-3 bg-white border-b-2 h-14">

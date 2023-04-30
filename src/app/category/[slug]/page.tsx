@@ -1,3 +1,6 @@
+import List from "@/components/board/List";
+import Title from "@/components/common/Title";
+
 type Props = {
   params: {
     slug: string;
@@ -15,7 +18,12 @@ export function generateMetadata({ params }: Props) {
   };
 }
 export default function DeveloperPage({ params: { slug } }: Props) {
-  return <div>{slug} page</div>;
+  return (
+    <div>
+      <Title title={`${slug} page`} />
+      <List />
+    </div>
+  );
 }
 export async function generateStaticParams() {
   //ssg

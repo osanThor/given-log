@@ -34,6 +34,7 @@ const formats = [
   "link",
   "image",
 ];
+
 export default function Editor() {
   return (
     <div id="editor" className={styles.editorBlock}>

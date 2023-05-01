@@ -1,21 +1,11 @@
 "use client";
 import { useAuth } from "@/contexts/auth.context";
-import { redirect, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function AdminLoginPage() {
-  const router = useRouter();
-  const { user, loginByEmail, isAdmin } = useAuth();
+  const { loginByEmail } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
-  if (user && !isAdmin) {
-    redirect("/");
-  }
-
-  if (isAdmin) {
-    redirect("/admin/boards");
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
@@ -32,12 +22,6 @@ export default function AdminLoginPage() {
     if (!password) return alert("비밀번호 입력");
     loginByEmail({ email, password });
   };
-
-  useEffect(() => {
-    if (user) {
-      return router.push("/");
-    }
-  }, [user, router]);
 
   return (
     <div className="flex min-h-[500px] items-center justify-center w-full ">

@@ -9,7 +9,7 @@ const { Auth } = FirebaseClient.getInstance();
 
 export default function useFirebaseAuth() {
   const [user, setUser] = useState<InAuthUser | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   async function loginByEmail({ email, password }: InEmailLoginPayload) {

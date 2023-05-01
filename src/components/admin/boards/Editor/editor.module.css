@@ -1,11 +1,8 @@
 .editorBlock {
   width: 100%;
-  height: max-content;
+  min-height: 700px;
 }
 .quill {
-  border: 1px solid #eee;
-  height: 100%;
-}
-.quill > .ql-container > .ql-editor {
-  min-height: 320px;
+  height: calc(100% - 50px);
+  max-height: 700px;
 }

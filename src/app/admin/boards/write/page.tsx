@@ -31,7 +31,7 @@ export default function BoardWritePage() {
         글쓰기
       </div>
       <div className="flex flex-col gap-3">
-        <div className="flex flex-col gap-2 md:flex-row ">
+        <div className="flex gap-2 ">
           <label className="min-w-[120px]">Featured</label>
           <input type="checkbox" name="featured" />
         </div>

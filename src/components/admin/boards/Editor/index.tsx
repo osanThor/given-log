@@ -36,10 +36,11 @@ const formats = [
 ];
 export default function Editor() {
   return (
-    <div className={styles.editorBlock}>
+    <div id="editor" className={styles.editorBlock}>
       <ReactQuill
         className={styles.quill}
         modules={modules}
+        scrollingContainer={"#editor"}
         formats={formats}
       />
     </div>

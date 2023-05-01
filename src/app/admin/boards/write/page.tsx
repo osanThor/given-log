@@ -3,6 +3,7 @@
 import { useState } from "react";
 import uuid from "react-uuid";
 import { AiFillCloseCircle } from "react-icons/ai";
+import Editor from "@/components/admin/boards/Editor";
 
 export default function BoardWritePage() {
   const [tag, setTag] = useState<string>("");
@@ -12,6 +13,7 @@ export default function BoardWritePage() {
     setTag(value);
   };
   const handleAddTag = () => {
+    if (!tag) return alert("tag 입력해줘");
     if (tags.includes(tag)) {
       return alert("존재하는 tag");
     }
@@ -29,11 +31,11 @@ export default function BoardWritePage() {
         글쓰기
       </div>
       <div className="flex flex-col gap-3">
-        <div className="flex gap-2 ">
+        <div className="flex flex-col gap-2 md:flex-row ">
           <label className="min-w-[120px]">Featured</label>
           <input type="checkbox" name="featured" />
         </div>
-        <div className="flex gap-2 ">
+        <div className="flex flex-col gap-2 md:flex-row ">
           <label className="min-w-[120px]">Title</label>
           <input
             type="text"
@@ -42,7 +44,7 @@ export default function BoardWritePage() {
             className="w-full h-10 px-2 border border-gray-300 rounded focus:border-blue-500"
           />
         </div>
-        <div className="flex gap-2 ">
+        <div className="flex flex-col gap-2 md:flex-row ">
           <label className="min-w-[120px]">Sub Title</label>
           <input
             type="text"
@@ -51,7 +53,7 @@ export default function BoardWritePage() {
             className="w-full h-10 px-2 border border-gray-300 rounded focus:border-blue-500"
           />
         </div>
-        <div className="flex gap-2 ">
+        <div className="flex flex-col gap-2 md:flex-row ">
           <label className="min-w-[120px]">Tags</label>
           <div className="flex flex-col w-full">
             <div className="flex w-full gap-1">
@@ -87,19 +89,17 @@ export default function BoardWritePage() {
             )}
           </div>
         </div>
-        <div className="flex gap-2 ">
+        <div className="flex flex-col gap-2 md:flex-row ">
           <label className="min-w-[120px]">Thumbnail</label>
           <input type="file" name="thumbnail" className="h-10" />
         </div>
-        <div className="flex gap-2 ">
+        <div className="flex flex-col gap-2 md:flex-row ">
           <label className="min-w-[120px]">Contant</label>
-          <input
-            type="text"
-            name="subTitle"
-            autoComplete="subTitle"
-            className="w-full h-10 px-2 border border-gray-300 rounded focus:border-blue-500"
-          />
+          <Editor />
         </div>
+        <button className="w-full max-w-[200px] mx-auto h-10 bg-blue-600 text-white">
+          글쓰기
+        </button>
       </div>
     </div>
   );

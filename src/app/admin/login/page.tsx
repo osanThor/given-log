@@ -1,9 +1,11 @@
 "use client";
 import { useAuth } from "@/contexts/auth.context";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function AdminLoginPage() {
-  const { user, loading, loginByEmail, logout } = useAuth();
+  const router = useRouter();
+  const { user, loginByEmail } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -25,8 +27,11 @@ export default function AdminLoginPage() {
     loginByEmail({ email, password });
   };
 
-  console.log(user);
-  console.log(loading);
+  useEffect(() => {
+    if (user) {
+      return router.push("/");
+    }
+  }, [user, router]);
 
   return (
     <div className="flex min-h-[500px] items-center justify-center w-full ">

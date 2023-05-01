@@ -5,6 +5,7 @@ import { createContext, useContext } from "react";
 
 interface InAuthContext {
   user: InAuthUser | null;
+  isAdmin: boolean;
   loading: boolean;
   loginByEmail: ({ email, password }: InEmailLoginPayload) => void;
   logout: () => void;
@@ -13,6 +14,7 @@ interface InAuthContext {
 const AuthContext = createContext<InAuthContext>({
   user: null,
   loading: true,
+  isAdmin: false,
   loginByEmail: async () => ({ user: null, credential: null }),
   logout: () => {},
 });

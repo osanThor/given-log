@@ -1,19 +1,17 @@
+import { InCeckAdmin } from "@/interfaces/in_Admin";
 import FirebaseAdmin from "@/services/firebase_admin";
-import FirebaseClient from "@/services/firebase_client";
-import { collection, doc, getDoc, getFirestore } from "firebase/firestore";
 
 const { Firestore } = FirebaseAdmin.getInstance();
-const {} = FirebaseClient.getInstance();
 
 const ADMIN_COL = "admin";
 
-async function check({ uid }: { uid: string }) {
+async function check({ uid }: { uid: string }): Promise<InCeckAdmin> {
   const adminRef = Firestore.collection(ADMIN_COL).doc(uid);
   const adminDoc = await adminRef.get();
   if (adminDoc.exists === false) {
-    return false;
+    return { isAdmin: false };
   }
-  const data = adminDoc.data();
+  const data = adminDoc.data() as InCeckAdmin;
   return data;
 }
 

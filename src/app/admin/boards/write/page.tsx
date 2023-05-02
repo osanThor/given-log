@@ -6,8 +6,14 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import Editor from "@/components/admin/boards/Editor";
 import { CldImage, CldUploadWidget } from "next-cloudinary";
 import ReactQuill from "react-quill";
+import { BasicProps } from "@/interfaces/in_Boards";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function BoardWritePage() {
+  const router = useRouter();
+
+  const [category, setCategory] = useState<string>("dev");
   const [featured, setFeatured] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
   const [subTitle, setSubTitle] = useState<string>("");
@@ -15,6 +21,15 @@ export default function BoardWritePage() {
   const [tag, setTag] = useState<string>("");
   const [tags, setTags] = useState<Array<string>>([]);
   const [contant, setContent] = useState<ReactQuill.Value | string>("");
+
+  const handleChangeCate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+    if (value === "dev" && checked) {
+      setCategory(value);
+    } else if (value === "life" && checked) {
+      setCategory(value);
+    }
+  };
 
   const handleChangeFeatured = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
@@ -60,6 +75,34 @@ export default function BoardWritePage() {
     setContent(val);
   };
 
+  const handlePost = async () => {
+    if (!title) return alert("제목!");
+    if (!subTitle) return alert("부제목!");
+    if (!contant) return alert("내용 써야지!");
+
+    try {
+      const body: BasicProps = {
+        category,
+        featured,
+        title,
+        subTitle,
+        thumbnail,
+        tags,
+        contant,
+      };
+      const resp = await axios.post("/api/boards/post", body);
+      console.log(resp);
+
+      if (resp) {
+        alert("작성 완료");
+        router.push("/admin/boards");
+      }
+    } catch (err) {
+      console.error(err);
+      alert(err);
+    }
+  };
+
   return (
     <div className="w-full">
       {/** TODO: FEATURED, TITLE,SUBTITLE,TAGS, THUMBNAIL, CONTANT,  POST  */}
@@ -68,13 +111,43 @@ export default function BoardWritePage() {
       </div>
       <div className="flex flex-col gap-3">
         <div className="flex gap-2 ">
+          <label className="min-w-[120px]">Category</label>
+          <div className="flex items-center h-10 gap-2">
+            <label className="cursor-pointer">
+              <input
+                type="radio"
+                className="mr-1"
+                name="category"
+                value="dev"
+                onChange={handleChangeCate}
+                checked={category === "dev"}
+              />
+              DEV
+            </label>
+            <label className="cursor-pointer">
+              <input
+                type="radio"
+                className="mr-1"
+                name="category"
+                value="life"
+                onChange={handleChangeCate}
+                checked={category === "life"}
+              />
+              Life
+            </label>
+          </div>
+        </div>
+        <div className="flex gap-2 ">
           <label className="min-w-[120px]">Featured</label>
-          <input
-            type="checkbox"
-            name="featured"
-            onChange={handleChangeFeatured}
-            checked={featured}
-          />
+          <div className="flex items-start h-10 pt-1">
+            <input
+              type="checkbox"
+              name="featured"
+              onChange={handleChangeFeatured}
+              checked={featured}
+              className="cursor-pointer"
+            />
+          </div>
         </div>
         <div className="flex flex-col gap-2 md:flex-row ">
           <label className="min-w-[120px]">Title</label>
@@ -170,7 +243,10 @@ export default function BoardWritePage() {
           <label className="min-w-[120px]">Contant</label>
           <Editor contant={contant} onChange={handleChangeContant} />
         </div>
-        <button className="w-full max-w-[200px] mx-auto h-10 bg-blue-600 text-white">
+        <button
+          onClick={handlePost}
+          className="w-full max-w-[200px] mx-auto h-10 bg-blue-600 text-white"
+        >
           글쓰기
         </button>
       </div>

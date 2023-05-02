@@ -2,6 +2,9 @@ import Header, { HeaderSpacer } from "@/components/common/Header";
 import "./globals.css";
 import localFont from "next/font/local";
 import Container from "@/components/common/Container";
+import { Metadata } from "next";
+import Footer from "@/components/common/Footer";
+import { AuthProvider } from "@/contexts/auth.context";
 
 // Font files can be colocated inside of `app`
 const pretendard = localFont({
@@ -39,22 +42,28 @@ const pretendard = localFont({
   ],
 });
 
-export const metadata = {
-  title: "GIVEN.LOG",
+export const metadata: Metadata = {
+  title: "GIVEN's LOG",
   description: "Front End Developer Blog",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: {
+interface Props {
   children: React.ReactNode;
-}) {
+}
+
+export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body className={pretendard.className}>
-        <Header />
-        <HeaderSpacer />
-        <Container>{children}</Container>
+        <AuthProvider>
+          <Header />
+          <HeaderSpacer />
+          <Container>{children}</Container>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

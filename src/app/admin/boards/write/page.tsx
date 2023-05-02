@@ -5,6 +5,7 @@ import uuid from "react-uuid";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Editor from "@/components/admin/boards/Editor";
 import { CldImage, CldUploadWidget } from "next-cloudinary";
+import ReactQuill from "react-quill";
 
 export default function BoardWritePage() {
   const [featured, setFeatured] = useState<boolean>(false);
@@ -13,6 +14,7 @@ export default function BoardWritePage() {
   const [thumbnail, setThumbnail] = useState<string>("");
   const [tag, setTag] = useState<string>("");
   const [tags, setTags] = useState<Array<string>>([]);
+  const [contant, setContent] = useState<ReactQuill.Value | string>("");
 
   const handleChangeFeatured = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
@@ -52,6 +54,10 @@ export default function BoardWritePage() {
   };
   const handleDeleteTag = (str: string) => {
     setTags(tags.filter((el) => el !== str));
+  };
+
+  const handleChangeContant = (val: string) => {
+    setContent(val);
   };
 
   return (
@@ -162,7 +168,7 @@ export default function BoardWritePage() {
         </div>
         <div className="flex flex-col gap-2 md:flex-row ">
           <label className="min-w-[120px]">Contant</label>
-          <Editor />
+          <Editor contant={contant} onChange={handleChangeContant} />
         </div>
         <button className="w-full max-w-[200px] mx-auto h-10 bg-blue-600 text-white">
           글쓰기

@@ -1,5 +1,4 @@
 import * as admin from "firebase-admin";
-import { Firestore, getFirestore } from "firebase/firestore";
 
 interface FirebaseAdminConfig {
   privateKey: string;

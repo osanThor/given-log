@@ -4,14 +4,44 @@ import { useState } from "react";
 import uuid from "react-uuid";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Editor from "@/components/admin/boards/Editor";
+import { CldImage, CldUploadWidget } from "next-cloudinary";
 
 export default function BoardWritePage() {
+  const [featured, setFeatured] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>("");
+  const [subTitle, setSubTitle] = useState<string>("");
+  const [thumbnail, setThumbnail] = useState<string>("");
   const [tag, setTag] = useState<string>("");
   const [tags, setTags] = useState<Array<string>>([]);
+
+  const handleChangeFeatured = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = e.target;
+    setFeatured(checked);
+  };
+
+  const handleChangeTitleInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    if (name === "title") {
+      setTitle(value);
+    } else if (name === "subTitle") {
+      setSubTitle(value);
+    }
+  };
+
+  const handleUploadImage = async (e: any) => {
+    console.log(e);
+    const resp = await e.info.secure_url;
+    if (resp) {
+      setThumbnail(resp);
+      console.log(thumbnail);
+    }
+  };
+
   const handleChangeTag = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setTag(value);
   };
+
   const handleAddTag = () => {
     if (!tag) return alert("tag 입력해줘");
     if (tags.includes(tag)) {
@@ -33,7 +63,12 @@ export default function BoardWritePage() {
       <div className="flex flex-col gap-3">
         <div className="flex gap-2 ">
           <label className="min-w-[120px]">Featured</label>
-          <input type="checkbox" name="featured" />
+          <input
+            type="checkbox"
+            name="featured"
+            onChange={handleChangeFeatured}
+            checked={featured}
+          />
         </div>
         <div className="flex flex-col gap-2 md:flex-row ">
           <label className="min-w-[120px]">Title</label>
@@ -41,6 +76,8 @@ export default function BoardWritePage() {
             type="text"
             name="title"
             autoComplete="title"
+            value={title ? title : ""}
+            onChange={handleChangeTitleInputs}
             className="w-full h-10 px-2 border border-gray-300 rounded focus:border-blue-500"
           />
         </div>
@@ -50,6 +87,8 @@ export default function BoardWritePage() {
             type="text"
             name="subTitle"
             autoComplete="subTitle"
+            value={subTitle ? subTitle : ""}
+            onChange={handleChangeTitleInputs}
             className="w-full h-10 px-2 border border-gray-300 rounded focus:border-blue-500"
           />
         </div>
@@ -91,7 +130,35 @@ export default function BoardWritePage() {
         </div>
         <div className="flex flex-col gap-2 md:flex-row ">
           <label className="min-w-[120px]">Thumbnail</label>
-          <input type="file" name="thumbnail" className="h-10" />
+          <div className="flex flex-col w-full gap-2">
+            {thumbnail && (
+              <CldImage
+                alt={"preview"}
+                src={thumbnail}
+                width={600}
+                height={400}
+              />
+            )}
+            <CldUploadWidget
+              uploadPreset={"qalkk6fn"}
+              onUpload={handleUploadImage}
+            >
+              {({ open, results }) => {
+                function handleOnClick(e: React.MouseEvent<HTMLButtonElement>) {
+                  e.preventDefault();
+                  open();
+                }
+                return (
+                  <button
+                    onClick={handleOnClick}
+                    className="h-10 text-white bg-blue-500 rounded"
+                  >
+                    Upload
+                  </button>
+                );
+              }}
+            </CldUploadWidget>
+          </div>
         </div>
         <div className="flex flex-col gap-2 md:flex-row ">
           <label className="min-w-[120px]">Contant</label>

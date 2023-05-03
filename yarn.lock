@@ -3433,6 +3433,11 @@ react-is@^16.13.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-loading-skeleton@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-loading-skeleton/-/react-loading-skeleton-3.3.0.tgz#c2470768308dc758d51586500a23a968d60ef13d"
+  integrity sha512-+jwXoz7hA3kyNHzRyz/vjZx8lA/Vt91f6zB8gaygFZY8eLvbZyQiJC4ckYPWxqvfp2OiiwSs/fXTbZ7NyL3IrQ==
+
 react-quill@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-quill/-/react-quill-2.0.0.tgz#67a0100f58f96a246af240c9fa6841b363b3e017"

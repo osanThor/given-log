@@ -1,19 +1,19 @@
 import List from "@/components/board/List";
 import SlideList from "@/components/board/SlideList";
 import Title from "@/components/common/Title";
-import client from "@/lib/api/client";
+import { getMainList } from "@/services/get_list";
 
 const HomePage = async () => {
-  const { data: latestList } = await client("/api/boards/getList/latest");
-  const { data: featuredList } = await client("/api/boards/getList/featured");
+  const result = await getMainList();
 
   return (
     <>
       <Title title="📑 Latest Logs" />
-      <List list={latestList} />
+      <List list={result[0].data} />
       <Title title="⭐️ Featured Logs" />
-      <SlideList list={featuredList} />
+      <SlideList list={result[1].data} />
     </>
   );
 };
+
 export default HomePage;

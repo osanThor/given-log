@@ -1,11 +1,13 @@
+"use client";
 import Image from "next/image";
 import NoImage from "../../../public/assets/images/noimage.png";
 import Link from "next/link";
-import { BasicProps, InBoardItemProps } from "@/interfaces/in_Boards";
+import { InGetLogProps } from "@/interfaces/in_Boards";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Moment from "react-moment";
 
-export default function BoardItem({ item }: { item: InBoardItemProps }) {
+const BoardItem = ({ item }: { item: InGetLogProps }) => {
   return (
     <div className="overflow-hidden transition-transform border border-gray-300 rounded-lg shadow-lg h-max max-h-96 hover:translate-y-2">
       <Link href="/board/">
@@ -32,7 +34,11 @@ export default function BoardItem({ item }: { item: InBoardItemProps }) {
           </h1>
           <div className="flex justify-between">
             <span className="text-xs text-gray-500">
-            <Skeleton width={70} />
+              {item ? (
+                <Moment format="YYYY.MM.DD">{item?.createAt}</Moment>
+              ) : (
+                <Skeleton width={70} />
+              )}
             </span>
             {/* 후에 댓글, 좋아요 count 추가   */}
           </div>
@@ -40,4 +46,5 @@ export default function BoardItem({ item }: { item: InBoardItemProps }) {
       </Link>
     </div>
   );
-}
+};
+export default BoardItem;

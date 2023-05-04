@@ -4,7 +4,6 @@ import {
   InBlogColData,
   InGetListProps,
   InGetLogProps,
-  InLogData,
   InLogDataServer,
 } from "@/interfaces/in_Boards";
 import FirebaseAdmin from "@/services/firebase_admin";
@@ -71,45 +70,49 @@ async function post({
 }
 
 async function getFeaturedList() {
+  const logs: Array<any> = [];
+
   const blogRef = Firestore.collection(BLOG_COL);
-  const devRef = blogRef.doc(DEV_DOC).collection(LOGS_COL);
-  const lifeRef = blogRef.doc(LIFE_DOC).collection(LOGS_COL);
-
-  const querySnapshotDev = await devRef.where("featured", "==", true).get();
-  const querySnapshotLife = await lifeRef.where("featured", "==", true).get();
-
-  const devLogs = querySnapshotDev.docs.map((doc) => {
-    const { title, subTitle, category, createAt, thumbnail } =
-      doc.data() as Omit<InLogDataServer, "id">;
-    const data = {
-      id: doc.id,
-      title,
-      subTitle,
-      category,
-      createAt: createAt.toDate().toISOString(),
-      thumbnail,
-    } as InGetLogProps;
-    return data;
+  const docsQuerySnapshot = await blogRef
+    .where("category", "in", [DEV_DOC, LIFE_DOC])
+    .get();
+  // 각 문서에서 "logs" 하위 컬렉션에서 createAt 기준으로 최신글 8개 가져오기
+  for (const doc of docsQuerySnapshot.docs) {
+    const logsRef = blogRef.doc(doc.id).collection(LOGS_COL);
+    const logsQuerySnapshot = await logsRef
+      .where("featured", "==", true)
+      .limit(8)
+      .get();
+    logsQuerySnapshot.forEach((logDoc) => {
+      const { title, subTitle, category, createAt, thumbnail } =
+        logDoc.data() as Omit<InLogDataServer, "id">;
+      logs.push({
+        id: logDoc.id,
+        title,
+        subTitle: subTitle ? subTitle : "",
+        category,
+        createAt,
+        thumbnail: thumbnail ? thumbnail : "",
+      });
+    });
+  }
+  // 최신글 8개만 반환
+  logs
+    .sort((a, b) => b.createAt.toMillis() - a.createAt.toMillis())
+    .slice(0, 8);
+  const result: Array<InGetLogProps> = logs.map((lg) => {
+    const data = lg;
+    const returnData = {
+      ...data,
+      createAt: data.createAt.toDate().toISOString(),
+    };
+    return returnData;
   });
-  const lifeLogs = querySnapshotLife.docs.map((doc) => {
-    const { title, subTitle, category, createAt, thumbnail } =
-      doc.data() as Omit<InLogDataServer, "id">;
-    const data = {
-      id: doc.id,
-      title,
-      subTitle,
-      category,
-      createAt: createAt.toDate().toISOString(),
-      thumbnail,
-    } as InGetLogProps;
-    return data;
-  });
-
-  return devLogs.concat(lifeLogs).slice(0, 8);
+  return result;
 }
 
 async function getLatestList() {
-  const logs: any[] = [];
+  const logs: Array<any> = [];
 
   const blogRef = Firestore.collection(BLOG_COL);
   const docsQuerySnapshot = await blogRef
@@ -128,15 +131,26 @@ async function getLatestList() {
       logs.push({
         id: logDoc.id,
         title,
-        subTitle,
+        subTitle: subTitle ? subTitle : "",
         category,
-        createAt: createAt.toDate().toISOString(),
-        thumbnail,
+        createAt,
+        thumbnail: thumbnail ? thumbnail : "",
       });
     });
   }
   // 최신글 8개만 반환
-  return logs.sort((a, b) => b.createAt - a.createAt).slice(0, 8);
+  logs
+    .sort((a, b) => b.createAt.toMillis() - a.createAt.toMillis())
+    .slice(0, 8);
+  const result: Array<InGetLogProps> = logs.map((lg) => {
+    const data = lg;
+    const returnData = {
+      ...data,
+      createAt: data.createAt.toDate().toISOString(),
+    };
+    return returnData;
+  });
+  return result;
 }
 
 async function getList({ category, page = 1, size = 8 }: InGetListProps) {

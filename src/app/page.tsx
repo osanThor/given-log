@@ -1,18 +1,18 @@
 import List from "@/components/board/List";
 import SlideList from "@/components/board/SlideList";
 import Title from "@/components/common/Title";
-import axios from "axios";
+import client from "@/lib/api/client";
 
 const HomePage = async () => {
-  const resp = await axios(
-    "http://localhost:3000//api/boards/getList/featured"
-  );
+  const { data: featuredList } = await client("/api/boards/getList/featured");
+  const { data: latestList } = await client("/api/boards/getList/latest");
+
   return (
     <>
       <Title title="📑 Latest Logs" />
-      <List list={resp.data} />
+      <List list={featuredList} />
       <Title title="⭐️ Featured Logs" />
-      <SlideList />
+      <SlideList list={latestList} />
     </>
   );
 };

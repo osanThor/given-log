@@ -7,10 +7,11 @@ import "swiper/css";
 import "swiper/css/autoplay";
 
 import { Autoplay } from "swiper";
+import uuid from "react-uuid";
 
 const Array = [1, 2, 3, 4, 5, 6, 7, 8];
 
-export default function SlideList() {
+export default function SlideList({ list }: { list: Array<any> }) {
   return (
     <div className="w-full py-2 mb-10 ">
       <Swiper
@@ -38,9 +39,9 @@ export default function SlideList() {
         }}
         modules={[Autoplay]}
       >
-        {Array.map((el, idx) => (
-          <SwiperSlide key={idx} className="max-w-max">
-            <BoardItem />
+        {list.map((el, idx) => (
+          <SwiperSlide key={uuid()} className="max-w-max">
+            <BoardItem item={el} />
           </SwiperSlide>
         ))}
       </Swiper>

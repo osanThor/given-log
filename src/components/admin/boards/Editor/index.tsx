@@ -6,6 +6,7 @@ import { useMemo, useRef } from "react";
 import ImageUpload from "@/services/image_uploader";
 import { RangeStatic } from "quill";
 
+
 const formats = [
   "header",
   "bold",
@@ -29,6 +30,7 @@ const Editor = ({
   contant: ReactQuill.Value | string;
   onChange: (val: string) => void;
 }) => {
+
   const quillRef = useRef<ReactQuill>(null);
 
   function EditorImageUpload() {
@@ -45,6 +47,7 @@ const Editor = ({
 
         // file 데이터 담아서 서버에 전달하여 이미지 업로드
         const file = files[0];
+
         const res = await ImageUpload(file);
 
         if (quillRef.current) {
@@ -108,3 +111,4 @@ const Editor = ({
   );
 };
 export default Editor;
+

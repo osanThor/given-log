@@ -12,6 +12,7 @@ import uuid from "react-uuid";
 const Array = [1, 2, 3, 4, 5, 6, 7, 8];
 
 export default function SlideList({ list }: { list: Array<any> }) {
+
   return (
     <div className="w-full py-2 mb-10 ">
       <Swiper

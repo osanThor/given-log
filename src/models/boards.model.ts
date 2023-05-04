@@ -160,4 +160,5 @@ async function getList({ category, page = 1, size = 8 }: InGetListProps) {
 }
 
 const BoardsModel = { post, getFeaturedList, getLatestList };
+
 export default BoardsModel;

@@ -1,6 +1,7 @@
 import { firestore } from "firebase-admin";
 import ReactQuill from "react-quill";
 
+
 export interface BasicProps {
   category: string;
   featured: boolean;

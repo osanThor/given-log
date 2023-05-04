@@ -6,6 +6,7 @@ export default async function ImageUpload(file: File) {
   formData.append("upload_preset", "qalkk6fn");
 
   if (!url) return;
+
   const res = await fetch(url, {
     method: "POST",
     body: formData,

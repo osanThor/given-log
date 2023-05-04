@@ -11,9 +11,22 @@ export interface BasicProps {
   contant: ReactQuill.Value | string;
 }
 
-export interface InLogData extends BasicProps {
-  createAt: string | firestore.FieldValue;
+export interface InLogDataServer extends BasicProps {
+  createAt: firestore.Timestamp;
   logNum: number;
+}
+
+export interface InLogData extends BasicProps {
+  createAt: string;
+}
+
+export interface InGetLogProps {
+  category: string;
+  title: string;
+  subTitle: string;
+  createAt: string;
+  thumbnail: string;
+  id: string;
 }
 
 export interface InBlogColData {
@@ -31,6 +44,6 @@ export interface InBoardItemProps {
   title: string;
   subTitle: string;
   category: string;
-  createAt: string | firestore.FieldValue;
+  createAt: string;
   thumbnail: string;
 }

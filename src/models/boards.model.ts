@@ -3,10 +3,13 @@ import {
   BasicProps,
   InBlogColData,
   InGetListProps,
+  InGetLogProps,
   InLogData,
+  InLogDataServer,
 } from "@/interfaces/in_Boards";
 import FirebaseAdmin from "@/services/firebase_admin";
 import { firestore } from "firebase-admin";
+import ReactQuill from "react-quill";
 
 const BLOG_COL = "blog";
 
@@ -41,7 +44,17 @@ async function post({
       logCount = blogData.logCount;
     }
     const newBlogRef = blogRef.collection(LOGS_COL).doc();
-    const newLogBody: InLogData = {
+    const newLogBody: {
+      category: string;
+      featured: boolean;
+      title: string;
+      subTitle?: string;
+      tags?: Array<string>;
+      thumbnail?: string;
+      contant: ReactQuill.Value | string;
+      createAt: firestore.FieldValue;
+      logNum: number;
+    } = {
       category,
       featured,
       title,
@@ -66,24 +79,30 @@ async function getFeaturedList() {
   const querySnapshotLife = await lifeRef.where("featured", "==", true).get();
 
   const devLogs = querySnapshotDev.docs.map((doc) => {
-    const { title, subTitle, category, createAt, thumbnail } = doc.data();
-    return {
+    const { title, subTitle, category, createAt, thumbnail } =
+      doc.data() as Omit<InLogDataServer, "id">;
+    const data = {
+      id: doc.id,
       title,
       subTitle,
       category,
       createAt: createAt.toDate().toISOString(),
       thumbnail,
-    };
+    } as InGetLogProps;
+    return data;
   });
   const lifeLogs = querySnapshotLife.docs.map((doc) => {
-    const { title, subTitle, category, createAt, thumbnail } = doc.data();
-    return {
+    const { title, subTitle, category, createAt, thumbnail } =
+      doc.data() as Omit<InLogDataServer, "id">;
+    const data = {
+      id: doc.id,
       title,
       subTitle,
       category,
       createAt: createAt.toDate().toISOString(),
       thumbnail,
-    };
+    } as InGetLogProps;
+    return data;
   });
 
   return devLogs.concat(lifeLogs).slice(0, 8);
@@ -104,8 +123,16 @@ async function getLatestList() {
       .limit(8)
       .get();
     logsQuerySnapshot.forEach((logDoc) => {
-      const { title, subTitle, category, createAt, thumbnail } = logDoc.data();
-      logs.push({ title, subTitle, category, createAt, thumbnail });
+      const { title, subTitle, category, createAt, thumbnail } =
+        logDoc.data() as Omit<InLogDataServer, "id">;
+      logs.push({
+        id: logDoc.id,
+        title,
+        subTitle,
+        category,
+        createAt: createAt.toDate().toISOString(),
+        thumbnail,
+      });
     });
   }
   // 최신글 8개만 반환

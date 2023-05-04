@@ -5,7 +5,7 @@ import { BasicProps, InBoardItemProps } from "@/interfaces/in_Boards";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-export default function BoardItem({ item }: { item?: InBoardItemProps }) {
+export default function BoardItem({ item }: { item: InBoardItemProps }) {
   return (
     <div className="overflow-hidden transition-transform border border-gray-300 rounded-lg shadow-lg h-max max-h-96 hover:translate-y-2">
       <Link href="/board/">
@@ -31,7 +31,9 @@ export default function BoardItem({ item }: { item?: InBoardItemProps }) {
             {item?.subTitle || <Skeleton width={70} />}
           </h1>
           <div className="flex justify-between">
-            <span className="text-xs text-gray-500">2023.12.23</span>
+            <span className="text-xs text-gray-500">
+            <Skeleton width={70} />
+            </span>
             {/* 후에 댓글, 좋아요 count 추가   */}
           </div>
         </div>

@@ -1,4 +1,6 @@
 import { firestore } from "firebase-admin";
+import ReactQuill from "react-quill";
+
 
 export interface BasicProps {
   category: string;
@@ -7,15 +9,42 @@ export interface BasicProps {
   subTitle?: string;
   tags?: Array<string>;
   thumbnail?: string;
-  contant: string;
+  contant: ReactQuill.Value | string;
+}
+
+export interface InLogDataServer extends BasicProps {
+  createAt: firestore.Timestamp;
+  logNum: number;
 }
 
 export interface InLogData extends BasicProps {
-  createAt: string | firestore.FieldValue;
-  logNum: number;
+  createAt: string;
+}
+
+export interface InGetLogProps {
+  category: string;
+  title: string;
+  subTitle: string;
+  createAt: string;
+  thumbnail: string;
+  id: string;
 }
 
 export interface InBlogColData {
   category: string;
   logCount: number;
+}
+
+export interface InGetListProps {
+  category?: string;
+  page?: number;
+  size?: number;
+}
+
+export interface InBoardItemProps {
+  title: string;
+  subTitle: string;
+  category: string;
+  createAt: string;
+  thumbnail: string;
 }

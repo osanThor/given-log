@@ -1,14 +1,20 @@
 import List from "@/components/board/List";
 import SlideList from "@/components/board/SlideList";
 import Title from "@/components/common/Title";
+import { getMainList } from "@/services/get_list";
 
-export default function Home() {
+const HomePage = async () => {
+  const result = await getMainList();
+
   return (
     <>
       <Title title="📑 Latest Logs" />
-      <List />
+      <List list={result[0].data} />
       <Title title="⭐️ Featured Logs" />
-      <SlideList />
+      <SlideList list={result[1].data} />
     </>
   );
-}
+};
+
+export default HomePage;
+

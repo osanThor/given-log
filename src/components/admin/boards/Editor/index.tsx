@@ -4,6 +4,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
 import { useMemo, useRef } from "react";
 import ImageUpload from "@/services/image_uploader";
+import { RangeStatic } from "quill";
+
 
 const formats = [
   "header",
@@ -21,13 +23,14 @@ const formats = [
   "image",
 ];
 
-export default function Editor({
+const Editor = ({
   contant,
   onChange,
 }: {
   contant: ReactQuill.Value | string;
   onChange: (val: string) => void;
-}) {
+}) => {
+
   const quillRef = useRef<ReactQuill>(null);
 
   function EditorImageUpload() {
@@ -38,9 +41,13 @@ export default function Editor({
       input.click();
 
       input.onchange = async () => {
-        const file = input.files[0];
+        const files = input.files;
+
+        if (!files) return;
 
         // file 데이터 담아서 서버에 전달하여 이미지 업로드
+        const file = files[0];
+
         const res = await ImageUpload(file);
 
         if (quillRef.current) {
@@ -102,4 +109,6 @@ export default function Editor({
       />
     </div>
   );
-}
+};
+export default Editor;
+

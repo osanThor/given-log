@@ -1,7 +1,6 @@
 import BadReqError from "@/controllers/error/bad_req_error";
 import { BasicProps } from "@/interfaces/in_Boards";
 import BoardsModel from "@/models/boards.model";
-import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {

@@ -1,9 +1,18 @@
 import CustomServerError from "@/controllers/error/custom_server_error";
-import { BasicProps, InBlogColData, InLogData } from "@/interfaces/in_Boards";
+import {
+  BasicProps,
+  InBlogColData,
+  InGetListProps,
+  InLogData,
+} from "@/interfaces/in_Boards";
 import FirebaseAdmin from "@/services/firebase_admin";
 import { firestore } from "firebase-admin";
 
 const BLOG_COL = "blog";
+
+const DEV_DOC = "dev";
+const LIFE_DOC = "life";
+
 const LOGS_COL = "logs";
 
 const { Firestore } = FirebaseAdmin.getInstance();
@@ -48,5 +57,43 @@ async function post({
   });
 }
 
-const BoardsModel = { post };
+async function getFeaturedList() {
+  const blogRef = Firestore.collection(BLOG_COL);
+  const devRef = blogRef.doc(DEV_DOC).collection(LOGS_COL);
+  const lifeRef = blogRef.doc(LIFE_DOC).collection(LOGS_COL);
+
+  const querySnapshotDev = await devRef.where("featured", "==", true).get();
+  const querySnapshotLife = await lifeRef.where("featured", "==", true).get();
+
+  const devLogs = querySnapshotDev.docs.map((doc) => {
+    const { title, subTitle, category, createAt, thumbnail } = doc.data();
+    return {
+      title,
+      subTitle,
+      category,
+      createAt: createAt.toDate().toISOString(),
+      thumbnail,
+    };
+  });
+  const lifeLogs = querySnapshotLife.docs.map((doc) => {
+    const { title, subTitle, category, createAt, thumbnail } = doc.data();
+    return {
+      title,
+      subTitle,
+      category,
+      createAt: createAt.toDate().toISOString(),
+      thumbnail,
+    };
+  });
+
+  return devLogs.concat(lifeLogs).slice(0, 8);
+}
+
+async function getList({ category, page = 1, size = 8 }: InGetListProps) {
+  const blogRef = Firestore.collection(BLOG_COL);
+  const devRef = blogRef.doc(DEV_DOC).collection(LOGS_COL);
+  const lifeRef = blogRef.doc(LIFE_DOC).collection(LOGS_COL);
+}
+
+const BoardsModel = { post, getFeaturedList };
 export default BoardsModel;

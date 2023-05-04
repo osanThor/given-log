@@ -19,3 +19,9 @@ export interface InBlogColData {
   category: string;
   logCount: number;
 }
+
+export interface InGetListProps {
+  category?: string;
+  page?: number;
+  size?: number;
+}

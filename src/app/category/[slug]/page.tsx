@@ -20,7 +20,7 @@ export function generateMetadata({ params }: Props) {
   };
 }
 
-export default async function ListPage({ params: { slug } }: Props) {
+const ListPage = async ({ params: { slug } }: Props) => {
   const category =
     slug === "developer" ? "dev" : slug === "life" ? slug : "unknown";
   const data = await getList({ category });
@@ -30,7 +30,7 @@ export default async function ListPage({ params: { slug } }: Props) {
       <List list={data.contents} />
     </div>
   );
-}
+};
 export async function generateStaticParams() {
   //ssg
   const categories = ["developer", "life"];
@@ -38,3 +38,4 @@ export async function generateStaticParams() {
     slug: category,
   }));
 }
+export default ListPage;

@@ -175,7 +175,6 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
     } else {
       totalElements = logCount !== 0 ? logCount - 1 : 0;
     }
-    // const totalElements = logCount !== 0 ? logCount - 1 : 0;
     const remains = totalElements % size;
     const totalPages = (totalElements - remains) / size + (remains > 0 ? 1 : 0);
     const startAt = totalElements - (page - 1) * size;

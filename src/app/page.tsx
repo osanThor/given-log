@@ -1,7 +1,7 @@
 import Title from "@/components/common/Title";
 import List from "@/components/board/List";
 import SlideList from "@/components/board/SlideList";
-import { getFeaturedList, getLatestList } from "@/services/get_list";
+import { getFeaturedList, getLatestList } from "@/services/boards_service";
 
 export const revalidate = 10;
 

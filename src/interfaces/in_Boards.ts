@@ -40,3 +40,11 @@ export interface InGetListProps {
   size?: number;
   tag?: string;
 }
+
+export interface InGetListPromiseType {
+  totalElements: number;
+  totalPages: number;
+  page: number;
+  size: number;
+  contents: Array<InGetLogProps>;
+}

@@ -1,7 +1,6 @@
 import { firestore } from "firebase-admin";
 import ReactQuill from "react-quill";
 
-
 export interface BasicProps {
   category: string;
   featured: boolean;
@@ -36,15 +35,8 @@ export interface InBlogColData {
 }
 
 export interface InGetListProps {
-  category?: string;
+  category: string;
   page?: number;
   size?: number;
-}
-
-export interface InBoardItemProps {
-  title: string;
-  subTitle: string;
-  category: string;
-  createAt: string;
-  thumbnail: string;
+  tag?: string;
 }

@@ -1,27 +1,25 @@
+import Title from "@/components/common/Title";
 import List from "@/components/board/List";
 import SlideList from "@/components/board/SlideList";
-import Title from "@/components/common/Title";
-import { InGetLogProps } from "@/interfaces/in_Boards";
-import { getMainList } from "@/services/get_list";
+import { getFeaturedList, getLatestList } from "@/services/get_list";
 
-export const dynamicParams = true;
-
-interface Props {
-  latestList: Array<InGetLogProps>;
-  featuredist: Array<InGetLogProps>;
-}
+export const revalidate = 3;
 
 const HomePage = async () => {
-  const test = await getMainList();
+  const latestData = getLatestList();
+  const featuredData = getFeaturedList();
 
-  if (!test) return <div>데이터가 없습니다</div>;
+  const [latestList, featuredList] = await Promise.all([
+    latestData,
+    featuredData,
+  ]);
 
   return (
     <>
       <Title title="📑 Latest Logs" />
-      <List list={test} />
+      <List list={latestList} />
       <Title title="⭐️ Featured Logs" />
-      <SlideList list={test} />
+      <SlideList list={featuredList} />
     </>
   );
 };

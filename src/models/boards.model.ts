@@ -153,12 +153,68 @@ async function getLatestList() {
   return result;
 }
 
-async function getList({ category, page = 1, size = 8 }: InGetListProps) {
-  const blogRef = Firestore.collection(BLOG_COL);
-  const devRef = blogRef.doc(DEV_DOC).collection(LOGS_COL);
-  const lifeRef = blogRef.doc(LIFE_DOC).collection(LOGS_COL);
+async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
+  const bloDocgRef = Firestore.collection(BLOG_COL).doc(category);
+  const dataList = await Firestore.runTransaction(async (transaction) => {
+    const blogDoc = await transaction.get(bloDocgRef);
+    if (blogDoc.exists === false) {
+      throw new CustomServerError({
+        statusCode: 400,
+        message: "존재하지 않는 카테고리",
+      });
+    }
+    const blogDocInfo = blogDoc.data() as InBlogColData;
+    const { logCount = 0 } = blogDocInfo;
+    let totalElements;
+    if (tag) {
+      const tagsCol = await bloDocgRef
+        .collection(LOGS_COL)
+        .where("tags", "array-contains", tag)
+        .get();
+      totalElements = tagsCol.docs.length - 1;
+    } else {
+      totalElements = logCount !== 0 ? logCount - 1 : 0;
+    }
+    const remains = totalElements % size;
+    const totalPages = (totalElements - remains) / size + (remains > 0 ? 1 : 0);
+    const startAt = totalElements - (page - 1) * size;
+    if (startAt < 0) {
+      return { totalElements, totalPages: 0, page, size, content: [] };
+    }
+    let logsCol;
+    if (tag) {
+      logsCol = bloDocgRef
+        .collection(LOGS_COL)
+        .where("tags", "array-contains", tag)
+        .orderBy("logNum", "desc");
+    } else {
+      logsCol = bloDocgRef.collection(LOGS_COL).orderBy("logNum", "desc");
+    }
+    const logColLimeted = logsCol.startAt(startAt).limit(size);
+    const logsColDoc = await transaction.get(logColLimeted);
+    const data = logsColDoc.docs.map((log) => {
+      const docData = log.data() as Omit<InLogDataServer, "id">;
+      const returnData = {
+        id: log.id,
+        title: docData.title,
+        subTitle: docData.subTitle || "",
+        category: docData.category,
+        createAt: docData.createAt.toDate().toISOString(),
+        thumbnail: docData.thumbnail || "",
+      } as InGetLogProps;
+      return returnData;
+    });
+    return {
+      totalElements,
+      totalPages,
+      page,
+      size,
+      contents: data,
+    };
+  });
+  return dataList;
 }
 
-const BoardsModel = { post, getFeaturedList, getLatestList };
+const BoardsModel = { post, getList, getFeaturedList, getLatestList };
 
 export default BoardsModel;

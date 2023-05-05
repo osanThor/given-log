@@ -6,21 +6,37 @@ import { InGetLogProps } from "@/interfaces/in_Boards";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Moment from "react-moment";
+import { useState } from "react";
+
+const ImageLoader = ({ src }: { src: string }) => {
+  const imageSrc = `${src}`;
+  return imageSrc;
+};
 
 const BoardItem = ({ item }: { item: InGetLogProps }) => {
+  const [loading, setLoading] = useState<boolean>(true);
   return (
     <div className="overflow-hidden transition-transform border border-gray-300 rounded-lg shadow-lg h-max max-h-96 hover:translate-y-2">
       <Link href="/board/">
-        {item ? (
-          <Image
-            src={item.thumbnail || NoImage}
-            alt="no-image"
-            className="h-40"
-            width={400}
-            height={160}
-          />
-        ) : (
-          <Skeleton height={160} className="flex" />
+        {item && (
+          <div className="relative">
+            <Image
+              loader={ImageLoader}
+              src={item.thumbnail || NoImage}
+              alt="no-image"
+              className="h-40"
+              onLoadingComplete={() => setLoading(false)}
+              width={400}
+              height={160}
+            />
+            {loading && (
+              <Skeleton
+                height={160}
+                borderRadius={0}
+                className="absolute top-0 left-0 flex"
+              />
+            )}
+          </div>
         )}
         <div className="px-2 py-4">
           <span className="mb-2 text-xs font-bold text-green-500 uppercase">

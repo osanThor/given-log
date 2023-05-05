@@ -3,7 +3,7 @@ import List from "@/components/board/List";
 import SlideList from "@/components/board/SlideList";
 import { getFeaturedList, getLatestList } from "@/services/get_list";
 
-export const revalidate = 3;
+export const revalidate = 10;
 
 const HomePage = async () => {
   const latestData = getLatestList();

@@ -31,11 +31,5 @@ const ListPage = async ({ params: { slug } }: Props) => {
     </div>
   );
 };
-export async function generateStaticParams() {
-  //ssg
-  const categories = ["developer", "life"];
-  return categories.map((category) => ({
-    slug: category,
-  }));
-}
+
 export default ListPage;

@@ -4,31 +4,24 @@ import Title from "@/components/common/Title";
 import { InGetLogProps } from "@/interfaces/in_Boards";
 import { getMainList } from "@/services/get_list";
 
+export const dynamicParams = true;
+
 interface Props {
   latestList: Array<InGetLogProps>;
   featuredist: Array<InGetLogProps>;
 }
 
-async function getData() {
-  const res = await fetch("http://localhost:300/api/boards/getList/latest", {
-    next: { revalidate: 10 },
-  });
-  const data = res.json();
-  return data;
-  // const result = await getMainList();
-  // const latestList = await result[0].data;
-  // const featuredist = await result[1].data;
-  // return { props: { latestList, featuredist } };
-}
-
 const HomePage = async () => {
-  // const data = await getData();
+  const test = await getMainList();
+
+  if (!test) return <div>데이터가 없습니다</div>;
+
   return (
     <>
       <Title title="📑 Latest Logs" />
-      {/* <List list={data} /> */}
+      <List list={test} />
       <Title title="⭐️ Featured Logs" />
-      {/* <SlideList list={data} /> */}
+      <SlideList list={test} />
     </>
   );
 };

@@ -48,4 +48,3 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
   );
 };
 export default BoardItem;
-

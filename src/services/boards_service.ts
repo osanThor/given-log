@@ -32,7 +32,7 @@ export async function getList({
     `${basicUrl}/api/boards/getList?cate=${category}${
       page ? `&page${page}` : ""
     }${tag ? `&tag=${tag}` : ""}`,
-    { cache: "reload", next: { revalidate: 3 } }
+    { cache: "reload", next: { revalidate: 1 } }
   );
   const data = await res.json();
   return data;

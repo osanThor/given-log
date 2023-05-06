@@ -14,7 +14,7 @@ export async function GET(req: Request) {
       throw new BadReqError("category 누락");
     }
 
-    console.log(category);
+    console.log(tag);
 
     const convertPage = page ? page : "1";
     const convertSize = size ? size : "8";

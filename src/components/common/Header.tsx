@@ -4,13 +4,17 @@ import Link from "next/link";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { GoThreeBars, GoX } from "react-icons/go";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useAuth } from "@/contexts/auth.context";
 
 export default function Header() {
-  const { user, isAdmin, logout } = useAuth();
+  const { user, logout } = useAuth();
   const pathname = usePathname();
+  const saerchParams = useSearchParams();
   const [toggle, setToggle] = useState(false);
+
+  const cate = saerchParams.getAll('category');
+  console.log(cate);
 
   useEffect(() => {
     setToggle(false);
@@ -40,11 +44,11 @@ export default function Header() {
               className={classNames(
                 "font-medium transition-colors hover:text-cyan-400",
                 {
-                  "!text-cyan-400": pathname === "/category/developer",
-                  "text-gray-500": pathname != "/category/developer",
+                  "!text-cyan-400": pathname === "/category/dev",
+                  "text-gray-500": pathname != "/category/dev",
                 }
               )}
-              href="/category/developer"
+              href="/category/dev"
             >
               developer
             </Link>

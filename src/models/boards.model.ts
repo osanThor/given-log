@@ -181,6 +181,16 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
     if (startAt < 0) {
       return { totalElements, totalPages: 0, page, size, content: [] };
     }
+    let allTags: Array<string> = [];
+    const logsColTags = await bloDocgRef.collection(LOGS_COL).get();
+    logsColTags.forEach((log) => {
+      const logTags = log.data().tags;
+      logTags.forEach((tag: string) => {
+        if (!allTags.includes(tag)) {
+          allTags.push(tag);
+        }
+      });
+    });
     let logsCol;
     if (tag) {
       logsCol = bloDocgRef
@@ -209,6 +219,7 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
       totalPages,
       page,
       size,
+      allTags,
       contents: data,
     };
   });

@@ -7,6 +7,7 @@ import {
 const basicUrl = process.env.NEXT_PUBLIC_BASE_URL || "http:localhost:3000";
 export async function getLatestList(): Promise<Array<InGetLogProps>> {
   const res = await fetch(`${basicUrl}/api/boards/getList/latest`, {
+    cache: "reload",
     next: { revalidate: 10 },
   });
   const data = await res.json();
@@ -15,6 +16,7 @@ export async function getLatestList(): Promise<Array<InGetLogProps>> {
 
 export async function getFeaturedList(): Promise<Array<InGetLogProps>> {
   const res = await fetch(`${basicUrl}/api/boards/getList/featured`, {
+    cache: "reload",
     next: { revalidate: 10 },
   });
   const data = await res.json();

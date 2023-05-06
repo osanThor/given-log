@@ -46,5 +46,6 @@ export interface InGetListPromiseType {
   totalPages: number;
   page: number;
   size: number;
+  allTags: Array<string>;
   contents: Array<InGetLogProps>;
 }

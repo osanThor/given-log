@@ -36,7 +36,7 @@ const ListPage = async ({ params: { slug } }: Props) => {
   let tag;
   if (Array.isArray(slug)) {
     category =
-      slug[0] === "dev" ? "dev" : slug[0] === "life" ? slug[0] : "unknown";
+      slug[0] === "dev" ? slug[0] : slug[0] === "life" ? slug[0] : "unknown";
     tag = slug[1];
   } else {
     category = slug === "dev" ? "dev" : slug === "life" ? slug : "unknown";

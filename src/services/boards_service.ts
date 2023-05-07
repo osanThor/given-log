@@ -1,3 +1,4 @@
+import { InLogData } from "@/interfaces/in_Boards";
 import {
   InGetListPromiseType,
   InGetListProps,
@@ -7,6 +8,7 @@ import {
 const basicUrl = process.env.NEXT_PUBLIC_BASE_URL || "http:localhost:3000";
 export async function getLatestList(): Promise<Array<InGetLogProps>> {
   const res = await fetch(`${basicUrl}/api/boards/getList/latest`, {
+    cache: "reload",
     next: { revalidate: 10 },
   });
   const data = await res.json();
@@ -15,6 +17,7 @@ export async function getLatestList(): Promise<Array<InGetLogProps>> {
 
 export async function getFeaturedList(): Promise<Array<InGetLogProps>> {
   const res = await fetch(`${basicUrl}/api/boards/getList/featured`, {
+    cache: "reload",
     next: { revalidate: 10 },
   });
   const data = await res.json();
@@ -30,8 +33,17 @@ export async function getList({
     `${basicUrl}/api/boards/getList?cate=${category}${
       page ? `&page${page}` : ""
     }${tag ? `&tag=${tag}` : ""}`,
-    { cache: "reload", next: { revalidate: 3 } }
+    { cache: "reload", next: { revalidate: 1 } }
   );
+  const data = await res.json();
+  return data;
+}
+
+export async function getLog(id: string): Promise<InLogData> {
+  const res = await fetch(`${basicUrl}/api/boards/getItem?id=${id}`, {
+    cache: "reload",
+    next: { revalidate: 1 },
+  });
   const data = await res.json();
   return data;
 }

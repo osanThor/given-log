@@ -1,4 +1,5 @@
 "use client";
+import styles from "./viewer.module.css";
 import ReactMarkdown from "react-markdown";
 
 export interface ViewerProps {
@@ -6,5 +7,10 @@ export interface ViewerProps {
 }
 
 export default function Viewer({ content }: ViewerProps) {
-  return <div dangerouslySetInnerHTML={{ __html: content }} />;
+  return (
+    <div
+      className={styles.viewer}
+      dangerouslySetInnerHTML={{ __html: content }}
+    />
+  );
 }

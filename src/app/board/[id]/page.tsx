@@ -1,3 +1,4 @@
+import BoardViewContainer from "@/containers/board/BoardViewContainer";
 import { getLog } from "@/services/boards_service";
 
 interface Props {
@@ -6,5 +7,5 @@ interface Props {
 
 export default async function BoardPage({ params: { id } }: Props) {
   const data = await getLog(id);
-  return <div>page</div>;
+  return <BoardViewContainer data={data} />;
 }

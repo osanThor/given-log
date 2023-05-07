@@ -1,3 +1,4 @@
+import { InLogData } from "@/interfaces/in_Boards";
 import {
   InGetListPromiseType,
   InGetListProps,
@@ -38,7 +39,7 @@ export async function getList({
   return data;
 }
 
-export async function getLog(id: string) {
+export async function getLog(id: string): Promise<InLogData> {
   const res = await fetch(`${basicUrl}/api/boards/getItem?id=${id}`, {
     cache: "reload",
     next: { revalidate: 1 },

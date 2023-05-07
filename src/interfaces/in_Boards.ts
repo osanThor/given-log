@@ -16,7 +16,14 @@ export interface InLogDataServer extends BasicProps {
   logNum: number;
 }
 
-export interface InLogData extends BasicProps {
+export interface InLogData {
+  category: string;
+  featured: boolean;
+  title: string;
+  subTitle?: string;
+  tags?: Array<string>;
+  thumbnail?: string;
+  contant: string;
   createAt: string;
   logNum: number;
 }

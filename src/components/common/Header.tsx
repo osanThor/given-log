@@ -4,17 +4,13 @@ import Link from "next/link";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { GoThreeBars, GoX } from "react-icons/go";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/auth.context";
 
 export default function Header() {
   const { user, logout } = useAuth();
   const pathname = usePathname();
-  const saerchParams = useSearchParams();
   const [toggle, setToggle] = useState(false);
-
-  const cate = saerchParams.getAll('category');
-  console.log(cate);
 
   useEffect(() => {
     setToggle(false);

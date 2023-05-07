@@ -17,7 +17,7 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
   const [loading, setLoading] = useState<boolean>(true);
   return (
     <div className="overflow-hidden transition-transform border border-gray-300 rounded-lg shadow-lg h-max max-h-96 hover:translate-y-2">
-      <Link href="/board/">
+      <Link href={`/board/${item.id}`}>
         {item && (
           <div className="relative">
             <Image

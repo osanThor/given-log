@@ -37,3 +37,12 @@ export async function getList({
   const data = await res.json();
   return data;
 }
+
+export async function getLog(id: string) {
+  const res = await fetch(`${basicUrl}/api/boards/getItem?id=${id}`, {
+    cache: "reload",
+    next: { revalidate: 1 },
+  });
+  const data = await res.json();
+  return data;
+}

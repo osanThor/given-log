@@ -18,6 +18,7 @@ export interface InLogDataServer extends BasicProps {
 
 export interface InLogData extends BasicProps {
   createAt: string;
+  logNum: number;
 }
 
 export interface InGetLogProps {

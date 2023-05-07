@@ -5,6 +5,7 @@ import {
   InGetListProps,
   InGetLogProps,
   InLogDataServer,
+  InLogData,
 } from "@/interfaces/in_Boards";
 import FirebaseAdmin from "@/services/firebase_admin";
 import { firestore } from "firebase-admin";
@@ -154,6 +155,9 @@ async function getLatestList() {
 }
 
 async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
+  {
+    /** TODO: tag list 요청시 startAt 기준 수정 */
+  }
   const bloDocgRef = Firestore.collection(BLOG_COL).doc(category);
   const dataList = await Firestore.runTransaction(async (transaction) => {
     const blogDoc = await transaction.get(bloDocgRef);
@@ -226,6 +230,39 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
   return dataList;
 }
 
-const BoardsModel = { post, getList, getFeaturedList, getLatestList };
+async function getItem({ id }: { id: string }) {
+  const blogRef = Firestore.collection(BLOG_COL);
+  const devRef = blogRef.doc(DEV_DOC).collection(LOGS_COL).doc(id);
+  const lifeRef = blogRef.doc(LIFE_DOC).collection(LOGS_COL).doc(id);
+  const data = await Firestore.runTransaction(async (transaction) => {
+    const devRefDoc = await transaction.get(devRef);
+    const lifeRefDoc = await transaction.get(lifeRef);
+    if (!devRefDoc.exists && !lifeRefDoc.exists) {
+      throw new CustomServerError({
+        statusCode: 400,
+        message: "log를 찾을 수 없음",
+      });
+    }
+    if (devRefDoc.exists) {
+      const devLogData = devRefDoc.data() as Omit<InLogDataServer, "id">;
+      const returnData = {
+        ...devLogData,
+        createAt: devLogData.createAt.toDate().toISOString(),
+      } as InLogData;
+      return returnData;
+    }
+    if (lifeRefDoc.exists) {
+      const lifeLogData = lifeRefDoc.data() as Omit<InLogDataServer, "id">;
+      const returnData = {
+        ...lifeLogData,
+        createAt: lifeLogData.createAt.toDate().toISOString(),
+      } as InLogData;
+      return returnData;
+    }
+  });
+  return data;
+}
+
+const BoardsModel = { post, getList, getFeaturedList, getLatestList, getItem };
 
 export default BoardsModel;

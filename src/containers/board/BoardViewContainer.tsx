@@ -5,7 +5,7 @@ import Moment from "react-moment";
 import NoImage from "../../../public/assets/images/noimage.png";
 import uuid from "react-uuid";
 import Img from "@/components/common/Img";
-import Viewer from "@/components/board/Viewer";
+import Viewer from "@/components/board/viewer/Viewer";
 
 export default function BoardViewContainer({ data }: { data: InLogData }) {
   return (

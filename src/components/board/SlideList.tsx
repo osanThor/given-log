@@ -14,7 +14,7 @@ export default function SlideList({ list }: { list: Array<any> }) {
     <div className="w-full py-2 mb-10 ">
       <Swiper
         slidesPerView={4}
-        spaceBetween={32}
+        spaceBetween={16}
         className="w-full !py-6 mySwiper min-h-max"
         breakpoints={{
           0: {

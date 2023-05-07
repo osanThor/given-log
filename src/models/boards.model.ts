@@ -204,8 +204,8 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
     } else {
       logsCol = bloDocgRef.collection(LOGS_COL).orderBy("logNum", "desc");
     }
-    const logColLimeted = logsCol.startAt(startAt).limit(size);
-    const logsColDoc = await transaction.get(logColLimeted);
+    // const logColLimeted = logsCol.startAt(startAt).limit(size);
+    const logsColDoc = await transaction.get(logsCol);
     const data = logsColDoc.docs.map((log) => {
       const docData = log.data() as Omit<InLogDataServer, "id">;
       const returnData = {

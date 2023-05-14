@@ -12,9 +12,9 @@ const transport = nodeMailer.createTransport({
 });
 async function SendEmail({ from, subject, message }: EmailData) {
   const mailData = {
+    from: `${process.env.NAVER_AUTH_USER}@naver.com`,
     to: `${process.env.NAVER_AUTH_USER}@naver.com`,
     subject: `[GIVEN-LOG] ${subject}`,
-    from: `${process.env.NAVER_AUTH_USER}@naver.com`,
     html: `
       <h1>${subject}</h1>
       <p>보낸사람 : ${from}</p>

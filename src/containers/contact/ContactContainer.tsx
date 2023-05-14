@@ -4,6 +4,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import Lottie from "lottie-react";
 import contactEmail from "@/data/lottie/contact.json";
 import { useState } from "react";
+import { postContact } from "@/services/contact_service";
 
 export default function ContactContainer() {
   const [email, setEmail] = useState<string>("");
@@ -29,6 +30,28 @@ export default function ContactContainer() {
         }
       }
       setMessage(value);
+    }
+  };
+
+  const handleContact = async () => {
+    try {
+      if (!email) return alert("이메일을 입력해주세요");
+      const emailRule =
+        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; //이메일 정규식
+      if (!emailRule.test(email)) return alert("이메일 형식이 아닙니다.");
+      if (!subject) return alert("성함을 입력해주세요");
+      if (!message) return alert("메세지를 입력해주세요");
+
+      const result = await postContact({ from: email, subject, message });
+      if (result.result === "SUCCESS") {
+        alert("전송이 완료됐습니다");
+        setEmail("");
+        setSubject("");
+        setMessage("");
+      }
+    } catch (err) {
+      console.error(err);
+      alert(err);
     }
   };
 
@@ -63,6 +86,15 @@ export default function ContactContainer() {
             value={message ? message : ""}
             name="message"
           />
+        </div>
+        <div className="flex items-center justify-end">
+          <button
+            onClick={handleContact}
+            type="button"
+            className="h-10 px-3 py-2 text-white bg-blue-500 rounded-md w-28 hover:bg-blue-400"
+          >
+            전송
+          </button>
         </div>
       </div>
     </div>

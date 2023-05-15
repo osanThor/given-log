@@ -1,3 +1,4 @@
+"use client";
 import uuid from "react-uuid";
 import BoardItem from "./BoardItem";
 import { InGetLogProps } from "@/interfaces/in_Boards";

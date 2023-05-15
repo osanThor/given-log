@@ -109,7 +109,7 @@ async function getFeaturedList() {
     };
     return returnData;
   });
-  return result;
+  return result.slice(0, 8);
 }
 
 async function getLatestList() {
@@ -151,7 +151,7 @@ async function getLatestList() {
     };
     return returnData;
   });
-  return result;
+  return result.slice(0, 8);
 }
 
 async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {

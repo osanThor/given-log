@@ -1,6 +1,8 @@
 "use client";
 import styles from "./viewer.module.css";
-import ReactMarkdown from "react-markdown";
+import "react-quill/dist/quill.core.css";
+import "react-quill/dist/quill.snow.css";
+import "highlight.js/styles/atom-one-dark.css";
 
 export interface ViewerProps {
   content: string;
@@ -8,9 +10,13 @@ export interface ViewerProps {
 
 export default function Viewer({ content }: ViewerProps) {
   return (
-    <div
-      className={styles.viewer}
-      dangerouslySetInnerHTML={{ __html: content }}
-    />
+    <div className="ql-snow">
+      <div className="ql-editor">
+        <div
+          className={styles.viewer}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+      </div>
+    </div>
   );
 }

@@ -5,7 +5,8 @@ import "react-quill/dist/quill.bubble.css";
 import { useMemo, useRef } from "react";
 import ImageUpload from "@/services/image_uploader";
 import { RangeStatic } from "quill";
-
+import hljs from "highlight.js";
+import "highlight.js/styles/atom-one-dark.css";
 
 const formats = [
   "header",
@@ -14,6 +15,7 @@ const formats = [
   "underline",
   "strike",
   "blockquote",
+  "code-block",
   "list",
   "bullet",
   "indent",
@@ -23,6 +25,20 @@ const formats = [
   "image",
 ];
 
+hljs.configure({
+  // optionally configure hljs
+  languages: [
+    "javascript",
+    "python",
+    "c",
+    "c++",
+    "java",
+    "HTML",
+    "css",
+    "matlab",
+  ],
+});
+
 const Editor = ({
   contant,
   onChange,
@@ -30,7 +46,6 @@ const Editor = ({
   contant: ReactQuill.Value | string;
   onChange: (val: string) => void;
 }) => {
-
   const quillRef = useRef<ReactQuill>(null);
 
   function EditorImageUpload() {
@@ -73,10 +88,15 @@ const Editor = ({
 
   const modules = useMemo(
     () => ({
+      syntax: {
+        highlight: function (text: string) {
+          return hljs.highlightAuto(text).value;
+        },
+      },
       toolbar: {
         container: [
           [{ header: [1, 2, 3, 4, false] }],
-          ["bold", "italic", "underline", "strike", "blockquote"],
+          ["bold", "italic", "underline", "strike", "blockquote", "code-block"],
           [
             { list: "ordered" },
             { list: "bullet" },
@@ -89,6 +109,10 @@ const Editor = ({
         ],
         handlers: {
           image: EditorImageUpload, // 이미지 tool 사용에 대한 핸들러 설정
+        },
+        clipboard: {
+          // toggle to add extra line breaks when pasting HTML:
+          matchVisual: false,
         },
       },
     }),
@@ -111,4 +135,3 @@ const Editor = ({
   );
 };
 export default Editor;
-

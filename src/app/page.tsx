@@ -4,7 +4,9 @@ import SlideList from "@/components/board/SlideList";
 import { getFeaturedList, getLatestList } from "@/services/boards_service";
 import Profile from "@/components/common/Profile";
 
-const HomePage = async () => {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
   const latestData = getLatestList();
   const featuredData = getFeaturedList();
 
@@ -16,12 +18,10 @@ const HomePage = async () => {
   return (
     <>
       <Profile />
-      <Title title="📑 Latest Logs" />
-      <List list={latestList} />
       <Title title="⭐️ Featured Logs" />
-      <SlideList list={featuredList} />
+      <List list={featuredList} />
+      <Title title="📑 Latest Logs" />
+      <SlideList list={latestList} />
     </>
   );
-};
-
-export default HomePage;
+}

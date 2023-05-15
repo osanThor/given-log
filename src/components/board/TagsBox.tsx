@@ -22,7 +22,6 @@ const TagsBox = ({
       setDcTag("");
     }
   }, [tagProps]);
-  console.log(dcTag);
   return (
     <div className="flex-[0.5] border p-2 px-3 rounded-xl w-full border-gray-300 order-1 md:order-2 md:w-auto bg-gray-100">
       <h3 className="w-full mb-2 text-sm font-medium">Tags</h3>

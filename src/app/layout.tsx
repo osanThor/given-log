@@ -6,6 +6,8 @@ import { Metadata } from "next";
 import Footer from "@/components/common/Footer";
 import { AuthProvider } from "@/contexts/auth.context";
 
+export const dynamic = 'force-dynamic'
+
 // Font files can be colocated inside of `app`
 const pretendard = localFont({
   src: [

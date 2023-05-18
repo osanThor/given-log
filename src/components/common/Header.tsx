@@ -4,7 +4,7 @@ import Link from "next/link";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { GoThreeBars, GoX } from "react-icons/go";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/auth.context";
 
 export default function Header() {
@@ -19,6 +19,10 @@ export default function Header() {
   const handleLogout = () => {
     logout();
   };
+  const pathArr = pathname.split("/");
+
+  const isDev = pathArr.includes("dev");
+  const isLife = pathArr.includes("life");
 
   return (
     <header className="fixed top-0 left-0 z-50 flex items-center justify-center w-full px-6 py-3 bg-white border-b-2 h-14">
@@ -40,8 +44,8 @@ export default function Header() {
               className={classNames(
                 "font-medium transition-colors hover:text-cyan-400",
                 {
-                  "!text-cyan-400": pathname === "/category/dev",
-                  "text-gray-500": pathname != "/category/dev",
+                  "!text-cyan-400": isDev,
+                  "text-gray-500": !isDev,
                 }
               )}
               href="/category/dev"
@@ -52,8 +56,8 @@ export default function Header() {
               className={classNames(
                 "font-medium  transition-colors hover:text-cyan-400",
                 {
-                  "!text-cyan-400": pathname === "/category/life",
-                  "text-gray-500": pathname != "/category/life",
+                  "!text-cyan-400": isLife,
+                  "text-gray-500": !isLife,
                 }
               )}
               href="/category/life"

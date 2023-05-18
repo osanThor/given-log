@@ -3,8 +3,9 @@ import List from "@/components/board/List";
 import SlideList from "@/components/board/SlideList";
 import { getFeaturedList, getLatestList } from "@/services/boards_service";
 import Profile from "@/components/common/Profile";
+import MainPageLoading from "./loading";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 10;
 
 export default async function HomePage() {
   const latestData = getLatestList();
@@ -14,6 +15,10 @@ export default async function HomePage() {
     latestData,
     featuredData,
   ]);
+
+  if (!latestList || !featuredList) {
+    return <MainPageLoading />;
+  }
 
   return (
     <>

@@ -6,6 +6,6 @@ interface Props {
 }
 
 export default async function BoardPage({ params: { id } }: Props) {
-  const data = await getLog(id);
-  return <BoardViewContainer data={data} />;
+  // const data = await getLog(id);
+  return <BoardViewContainer id={id} />;
 }

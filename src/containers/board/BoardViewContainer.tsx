@@ -6,8 +6,26 @@ import NoImage from "../../../public/assets/images/noimage.png";
 import uuid from "react-uuid";
 import Img from "@/components/common/Img";
 import Viewer from "@/components/board/viewer/Viewer";
+import { useEffect, useState } from "react";
+import BoardLoading from "@/app/board/loading";
+import { getLog } from "@/services/boards_service";
 
-export default function BoardViewContainer({ data }: { data: InLogData }) {
+async function dataFetch(id: string) {}
+export default function BoardViewContainer({ id }: { id: string }) {
+  const [data, setData] = useState<InLogData | null>(null);
+  async function dataFetch() {
+    try {
+      const result = await getLog(id);
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  useEffect(() => {}, []);
+
+  if (!data) {
+    return <BoardLoading />;
+  }
   return (
     <div className="relative w-full overflow-hidden rounded max-h-max">
       <div className="max-h-[500px] overflow-hidden">

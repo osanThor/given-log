@@ -19,7 +19,7 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
     <div className="overflow-hidden transition-transform border border-gray-300 rounded-lg shadow-lg h-max max-h-96 hover:translate-y-2">
       <Link href={`/board/${item.id}`}>
         {item && (
-          <div className="relative">
+          <div className="relative max-h-40">
             <Image
               loader={ImageLoader}
               src={item.thumbnail || NoImage}

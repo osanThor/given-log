@@ -4,7 +4,7 @@ import SlideList from "@/components/board/SlideList";
 import { getFeaturedList, getLatestList } from "@/services/boards_service";
 import Profile from "@/components/common/Profile";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 10;
 
 export default async function HomePage() {
   const latestData = getLatestList();

@@ -5,8 +5,7 @@ import Container from "@/components/common/Container";
 import { Metadata } from "next";
 import Footer from "@/components/common/Footer";
 import { AuthProvider } from "@/contexts/auth.context";
-
-export const dynamic = 'force-dynamic'
+import ReactQueryProvider from "./ReactQuery";
 
 // Font files can be colocated inside of `app`
 const pretendard = localFont({
@@ -60,12 +59,14 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body className={pretendard.className}>
-        <AuthProvider>
-          <Header />
-          <HeaderSpacer />
-          <Container>{children}</Container>
-          <Footer />
-        </AuthProvider>
+        <ReactQueryProvider>
+          <AuthProvider>
+            <Header />
+            <HeaderSpacer />
+            <Container>{children}</Container>
+            <Footer />
+          </AuthProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

@@ -6,7 +6,7 @@ import { InGetLogProps } from "@/interfaces/in_Boards";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Moment from "react-moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ImageLoader = ({ src }: { src: string }) => {
   const imageSrc = `${src}`;
@@ -15,6 +15,10 @@ const ImageLoader = ({ src }: { src: string }) => {
 
 const BoardItem = ({ item }: { item: InGetLogProps }) => {
   const [loading, setLoading] = useState<boolean>(true);
+  const [mounted, setMounted] = useState<boolean>(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <div className="overflow-hidden transition-transform border border-gray-300 rounded-lg shadow-lg h-max max-h-96 hover:translate-y-2">
       <Link href={`/board/${item.id}`}>
@@ -50,7 +54,7 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
           </h1>
           <div className="flex justify-between">
             <span className="text-xs text-gray-500">
-              {item ? (
+              {item && mounted ? (
                 <Moment format="YYYY.MM.DD">{item?.createAt}</Moment>
               ) : (
                 <Skeleton width={70} />

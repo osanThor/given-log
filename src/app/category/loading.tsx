@@ -4,7 +4,7 @@ import BoardSkeletonItem from "@/components/board/BoardSkeletonItem";
 import uuid from "react-uuid";
 
 const arr = [1, 2, 3, 4, 5, 6, 7, 8];
-export default function MainPageLoading() {
+export default function BoardsPageLoading() {
   return (
     <>
       <div className="py-2 border-b border-gray-300">

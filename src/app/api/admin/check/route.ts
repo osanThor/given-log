@@ -2,6 +2,8 @@ import BadReqError from "@/controllers/error/bad_req_error";
 import AdminModel from "@/models/admin.model";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);

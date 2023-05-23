@@ -6,7 +6,7 @@ type Props = {
   error: Error;
   reset: () => void;
 };
-export default function ProductsError({ error, reset }: Props) {
+export default function MainError({ error, reset }: Props) {
   useEffect(() => {
     console.error(error);
   }, [error]);

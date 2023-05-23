@@ -1,8 +1,5 @@
-import TagsBox from "@/components/board/TagsBox";
-import Title from "@/components/common/Title";
-import { getList } from "@/services/boards_service";
-import dynamic from "next/dynamic";
-const List = dynamic(() => import("@/components/board/List"), { ssr: false });
+import BoardsContainer from "@/containers/boards/BoardsContainer";
+
 type Props = {
   params: {
     slug: string | Array<string>;
@@ -42,19 +39,8 @@ const ListPage = async ({ params: { slug } }: Props) => {
     category = slug === "dev" ? "dev" : slug === "life" ? slug : "unknown";
     tag = undefined;
   }
-  const data = await getList({ category, tag });
 
-  return (
-    <>
-      <div className="order-2 flex-[3] md:order-1">
-        <Title title={`${category} Logs`} />
-        <List list={data.contents} />
-      </div>
-      {data.allTags.length > 0 && (
-        <TagsBox allTags={data.allTags} cate={category} tag={tag} />
-      )}
-    </>
-  );
+  return <BoardsContainer category={category} tag={tag} />;
 };
 
 export default ListPage;

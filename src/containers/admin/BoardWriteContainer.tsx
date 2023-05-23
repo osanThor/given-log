@@ -45,11 +45,9 @@ export default function BoardWriteContainer() {
   };
 
   const handleUploadImage = async (e: any) => {
-    console.log(e);
     const resp = await e.info.secure_url;
     if (resp) {
       setThumbnail(resp);
-      console.log(thumbnail);
     }
   };
 
@@ -90,7 +88,6 @@ export default function BoardWriteContainer() {
         contant,
       };
       const resp = await client.post("/api/boards/post", body);
-      console.log(resp);
 
       if (resp) {
         alert("작성 완료");

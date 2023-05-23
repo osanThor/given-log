@@ -1,7 +1,8 @@
-import List from "@/components/board/List";
 import TagsBox from "@/components/board/TagsBox";
 import Title from "@/components/common/Title";
 import { getList } from "@/services/boards_service";
+import dynamic from "next/dynamic";
+const List = dynamic(() => import("@/components/board/List"), { ssr: false });
 type Props = {
   params: {
     slug: string | Array<string>;

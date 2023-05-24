@@ -1,6 +1,7 @@
 "use client";
 
 import List from "@/components/board/List";
+import ListLoading from "@/components/board/ListLoading";
 import TagsBox from "@/components/board/TagsBox";
 import Title from "@/components/common/Title";
 import { InGetLogProps } from "@/interfaces/in_Boards";
@@ -29,7 +30,7 @@ export default function BoardsContainer({ category, tag }: Props) {
   const [tags, setTags] = useState<Array<string>>([]);
   const getBoardsKey = ["boardsList", category, tag];
 
-  useQuery(
+  const { isLoading } = useQuery(
     getBoardsKey,
     async () =>
       await client.get<getListProps>(
@@ -54,9 +55,10 @@ export default function BoardsContainer({ category, tag }: Props) {
 
   return (
     <>
-      <div className="order-2 flex-[3] md:order-1">
+      <div className="order-2 flex-[3] w-full md:w-auto md:order-1">
         <Title title={`${category} Logs`} />
         <List list={contents} />
+        {isLoading && <ListLoading />}
       </div>
       <TagsBox allTags={tags} cate={category} tag={tag} />
     </>

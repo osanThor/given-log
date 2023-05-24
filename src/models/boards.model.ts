@@ -185,16 +185,6 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
     if (startAt < 0) {
       return { totalElements, totalPages: 0, page, size, content: [] };
     }
-    let allTags: Array<string> = [];
-    const logsColTags = await bloDocgRef.collection(LOGS_COL).get();
-    logsColTags.forEach((log) => {
-      const logTags = log.data().tags;
-      logTags.forEach((tag: string) => {
-        if (!allTags.includes(tag)) {
-          allTags.push(tag);
-        }
-      });
-    });
     let logsCol;
     if (tag) {
       logsCol = bloDocgRef
@@ -223,11 +213,35 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
       totalPages,
       page,
       size,
-      allTags,
       contents: data,
     };
   });
   return dataList;
+}
+async function getAllTags({ category }: { category: string }) {
+  const bloDocgRef = Firestore.collection(BLOG_COL).doc(category);
+  const data = await Firestore.runTransaction(async (transaction) => {
+    const blogDoc = await transaction.get(bloDocgRef);
+    if (blogDoc.exists === false) {
+      throw new CustomServerError({
+        statusCode: 400,
+        message: "존재하지 않는 카테고리",
+      });
+    }
+    let allTags: Array<string> = [];
+    const logsColTags = await bloDocgRef.collection(LOGS_COL).get();
+    logsColTags.forEach((log) => {
+      const logTags = log.data().tags;
+      logTags.forEach((tag: string) => {
+        if (!allTags.includes(tag)) {
+          allTags.push(tag);
+        }
+      });
+    });
+
+    return allTags;
+  });
+  return data;
 }
 
 async function getItem({ id }: { id: string }) {
@@ -263,6 +277,13 @@ async function getItem({ id }: { id: string }) {
   return data;
 }
 
-const BoardsModel = { post, getList, getFeaturedList, getLatestList, getItem };
+const BoardsModel = {
+  post,
+  getFeaturedList,
+  getLatestList,
+  getList,
+  getAllTags,
+  getItem,
+};
 
 export default BoardsModel;

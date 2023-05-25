@@ -155,9 +155,7 @@ async function getLatestList() {
 }
 
 async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
-  {
-    /** TODO: tag list 요청시 startAt 기준 수정 */
-  }
+  /** TODO: tag list 요청시 startAt 기준 수정 */
   const bloDocgRef = Firestore.collection(BLOG_COL).doc(category);
   const dataList = await Firestore.runTransaction(async (transaction) => {
     const blogDoc = await transaction.get(bloDocgRef);
@@ -190,9 +188,9 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
       logsCol = bloDocgRef
         .collection(LOGS_COL)
         .where("tags", "array-contains", tag)
-        .orderBy("logNum", "desc");
+        .orderBy("createAt", "desc");
     } else {
-      logsCol = bloDocgRef.collection(LOGS_COL).orderBy("logNum", "desc");
+      logsCol = bloDocgRef.collection(LOGS_COL).orderBy("createAt", "desc");
     }
     // const logColLimeted = logsCol.startAt(startAt).limit(size);
     const logsColDoc = await transaction.get(logsCol);
@@ -218,6 +216,7 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
   });
   return dataList;
 }
+
 async function getAllTags({ category }: { category: string }) {
   const bloDocgRef = Firestore.collection(BLOG_COL).doc(category);
   const data = await Firestore.runTransaction(async (transaction) => {

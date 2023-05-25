@@ -48,6 +48,8 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@types/nodemailer": "^6.4.7"
+    "@next/bundle-analyzer": "^13.4.3",
+    "@types/nodemailer": "^6.4.7",
+    "next-compose-plugins": "^2.2.1"
   }
 }

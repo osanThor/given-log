@@ -6,12 +6,13 @@ import TagsBox from "@/components/board/TagsBox";
 import Title from "@/components/common/Title";
 import { InGetLogProps } from "@/interfaces/in_Boards";
 import client from "@/lib/api/client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 
 interface Props {
   category: string;
   tag: string | undefined;
+  tags: Array<string>
 }
 
 interface getListProps {
@@ -22,11 +23,11 @@ interface getListProps {
   totalPages: number;
 }
 
-export default function BoardsContainer({ category, tag }: Props) {
+export default function BoardsContainer({ category, tag, tags}: Props) {
   const [contents, setContents] = useState<Array<InGetLogProps>>([]);
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
-  const [tags, setTags] = useState<Array<string>>([]);
+//   const [tags, setTags] = useState<Array<string>>([]);
 
   const getBoardsKey = ["boardsList", category, tag];
 
@@ -52,17 +53,17 @@ export default function BoardsContainer({ category, tag }: Props) {
     }
   );
 
-  useQuery(
-    ["allTags", category],
-    async () => await client.get(`/api/boards/getList/tags?cate=${category}`),
-    {
-      keepPreviousData: true,
-      refetchOnWindowFocus: false,
-      onSuccess: (data) => {
-        setTags([...data.data]);
-      },
-    }
-  );
+//   useQuery(
+//     ["allTags", category],
+//     async () => await client.get(`/api/boards/getList/tags?cate=${category}`),
+//     {
+//       keepPreviousData: true,
+//       refetchOnWindowFocus: false,
+//       onSuccess: (data) => {
+//         setTags([...data.data]);
+//       },
+//     }
+//   );
 
   return (
     <>

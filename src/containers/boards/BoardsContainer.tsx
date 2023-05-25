@@ -27,7 +27,6 @@ export default function BoardsContainer({ category, tag, tags}: Props) {
   const [contents, setContents] = useState<Array<InGetLogProps>>([]);
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
-//   const [tags, setTags] = useState<Array<string>>([]);
 
   const getBoardsKey = ["boardsList", category, tag];
 
@@ -53,17 +52,6 @@ export default function BoardsContainer({ category, tag, tags}: Props) {
     }
   );
 
-//   useQuery(
-//     ["allTags", category],
-//     async () => await client.get(`/api/boards/getList/tags?cate=${category}`),
-//     {
-//       keepPreviousData: true,
-//       refetchOnWindowFocus: false,
-//       onSuccess: (data) => {
-//         setTags([...data.data]);
-//       },
-//     }
-//   );
 
   return (
     <>

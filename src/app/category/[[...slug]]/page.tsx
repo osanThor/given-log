@@ -1,4 +1,5 @@
 import BoardsContainer from "@/containers/boards/BoardsContainer";
+import { getTags } from "@/services/boards_service";
 
 type Props = {
   params: {
@@ -39,8 +40,9 @@ const ListPage = async ({ params: { slug } }: Props) => {
     category = slug === "dev" ? "dev" : slug === "life" ? slug : "unknown";
     tag = undefined;
   }
+  const tags = await getTags(category);
 
-  return <BoardsContainer category={category} tag={tag} />;
+  return <BoardsContainer category={category} tag={tag} tags={tags} />;
 };
 
 export default ListPage;

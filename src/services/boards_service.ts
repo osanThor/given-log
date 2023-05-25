@@ -17,6 +17,17 @@ export async function getFeaturedList(): Promise<Array<InGetLogProps>> {
   return data;
 }
 
+export async function getTags(category: string): Promise<Array<string>> {
+  const res = await fetch(
+    `${basicUrl}/api/boards/getList/tags?cate=${category}`,
+    {
+      cache: "no-store",
+    }
+  );
+  const data = await res.json();
+  return data;
+}
+
 export async function getLog(id: string) {
   try {
     if (!id) {

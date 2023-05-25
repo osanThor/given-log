@@ -1,5 +1,9 @@
-import BoardsContainer from "@/containers/boards/BoardsContainer";
+import dynamic from "next/dynamic";
 import { getTags } from "@/services/boards_service";
+const BoardsContainer = dynamic(
+  () => import("@/containers/boards/BoardsContainer"),
+  { ssr: false }
+);
 
 type Props = {
   params: {

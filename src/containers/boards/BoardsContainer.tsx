@@ -4,7 +4,7 @@ import List from "@/components/board/List";
 import ListLoading from "@/components/board/ListLoading";
 import TagsBox from "@/components/board/TagsBox";
 import Title from "@/components/common/Title";
-import { InGetLogProps } from "@/interfaces/in_Boards";
+import { InGetLogProps, getListProps } from "@/interfaces/in_Boards";
 import client from "@/lib/api/client";
 import { useState } from "react";
 import { useQuery } from "react-query";
@@ -12,18 +12,10 @@ import { useQuery } from "react-query";
 interface Props {
   category: string;
   tag: string | undefined;
-  tags: Array<string>
+  tags: Array<string>;
 }
 
-interface getListProps {
-  contents: Array<InGetLogProps>;
-  page: number;
-  size: number;
-  totalElements: number;
-  totalPages: number;
-}
-
-export default function BoardsContainer({ category, tag, tags}: Props) {
+export default function BoardsContainer({ category, tag, tags }: Props) {
   const [contents, setContents] = useState<Array<InGetLogProps>>([]);
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
@@ -51,7 +43,6 @@ export default function BoardsContainer({ category, tag, tags}: Props) {
       },
     }
   );
-
 
   return (
     <>

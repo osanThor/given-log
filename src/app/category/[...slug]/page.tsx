@@ -1,9 +1,6 @@
-import dynamic from "next/dynamic";
 import { getTags } from "@/services/boards_service";
-const BoardsContainer = dynamic(
-  () => import("@/containers/boards/BoardsContainer"),
-  { ssr: false }
-);
+import { Metadata } from "next";
+import BoardsContainer from "@/containers/boards/BoardsContainer";
 
 type Props = {
   params: {
@@ -11,25 +8,18 @@ type Props = {
   };
 };
 
-export function generateMetadata({ params }: Props) {
+export async function generateMetadata({
+  params: { slug },
+}: Props): Promise<Metadata> {
   let category;
-  if (Array.isArray(params.slug)) {
+  if (Array.isArray(slug)) {
     category =
-      params.slug[0] === "dev"
-        ? "개발"
-        : params.slug[0] === "life"
-        ? "인생"
-        : "기묘한";
+      slug[0] === "dev" ? "개발" : slug[0] === "life" ? "인생" : "기묘한";
   } else {
-    category =
-      params.slug === "dev"
-        ? "개발"
-        : params.slug === "life"
-        ? "인생"
-        : "기묘한";
+    category = slug === "dev" ? "개발" : slug === "life" ? "인생" : "기묘한";
   }
   return {
-    title: `GIVEN's LOG | ${category} 이야기`,
+    title: `${category} 이야기`,
   };
 }
 
@@ -38,7 +28,11 @@ const ListPage = async ({ params: { slug } }: Props) => {
   const tag = slug[1] ?? "";
   const tags = await getTags(category);
 
-  return <BoardsContainer category={category} tag={tag} tags={tags} />;
+  return (
+    <>
+      <BoardsContainer category={category} tag={tag} tags={tags} />
+    </>
+  );
 };
 
 export default ListPage;

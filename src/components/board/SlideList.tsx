@@ -37,7 +37,7 @@ export default function SlideList({ list }: { list: Array<any> }) {
         loop={true}
         modules={[Autoplay]}
       >
-        {list.map((el, idx) => (
+        {list.map((el) => (
           <SwiperSlide key={uuid()} className="max-w-max">
             <BoardItem item={el} />
           </SwiperSlide>

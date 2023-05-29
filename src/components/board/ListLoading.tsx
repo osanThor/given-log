@@ -1,4 +1,3 @@
-"use client";
 import uuid from "react-uuid";
 import BoardSkeletonItem from "./BoardSkeletonItem";
 

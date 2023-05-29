@@ -49,11 +49,10 @@ export interface InGetListProps {
   tag?: string;
 }
 
-export interface InGetListPromiseType {
-  totalElements: number;
-  totalPages: number;
+export interface getListProps {
+  contents: Array<InGetLogProps>;
   page: number;
   size: number;
-  allTags: Array<string>;
-  contents: Array<InGetLogProps>;
+  totalElements: number;
+  totalPages: number;
 }

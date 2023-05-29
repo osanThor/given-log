@@ -44,7 +44,7 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "GIVEN's LOG",
+  title: { default: "GIVEN's LOG", template: "GIVEN's LOG | %s" },
   description: "Front End Developer Blog",
   icons: {
     icon: "/favicon.ico",

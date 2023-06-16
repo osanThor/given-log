@@ -20,9 +20,9 @@ export default function BoardsContainer({ category, tag, tags }: Props) {
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
 
-  const getBoardsKey = ["boardsList", category, tag];
+  const getBoardsKey = ["boardsList", category, tag, page];
 
-  const { isLoading } = useQuery(
+  const { isLoading:loading } = useQuery(
     getBoardsKey,
     async () =>
       await client.get<getListProps>(
@@ -49,7 +49,8 @@ export default function BoardsContainer({ category, tag, tags }: Props) {
       <div className="order-2 flex-[3] w-full md:w-auto md:order-1">
         <Title title={`${category} Logs`} />
         <List list={contents} />
-        {isLoading && <ListLoading />}
+        {loading && <ListLoading />}
+        {page < totalPage && <div className="flex items-center justify-center w-full py-2"><button className="px-6 py-2 text-lg font-bold text-white bg-blue-500 rounded-md hover:bg-blue-300" onClick={()=>setPage(page + 1)}>더보기</button></div>}
       </div>
       <TagsBox allTags={tags} cate={category} tag={tag} />
     </>

@@ -7,6 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Moment from "react-moment";
 import { useEffect, useState } from "react";
+import React from "react";
 
 const ImageLoader = ({ src }: { src: string }) => {
   const imageSrc = `${src}`;
@@ -28,10 +29,11 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
               loader={ImageLoader}
               src={item.thumbnail || NoImage}
               alt="no-image"
-              className="h-40"
+              className="object-cover h-40"
               onLoadingComplete={() => setLoading(false)}
               width={400}
               height={160}
+              priority
             />
             {loading && (
               <Skeleton
@@ -67,4 +69,4 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
     </div>
   );
 };
-export default BoardItem;
+export default React.memo(BoardItem);

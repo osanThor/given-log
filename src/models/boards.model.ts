@@ -179,10 +179,7 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
     }
     const remains = totalElements % size;
     const totalPages = (totalElements - remains) / size + (remains > 0 ? 1 : 0);
-    const startAt = totalElements - (page - 1) * size;
-    if (startAt < 0) {
-      return { totalElements, totalPages: 0, page, size, content: [] };
-    }
+
     let logsCol;
     if (tag) {
       logsCol = bloDocgRef
@@ -192,8 +189,18 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
     } else {
       logsCol = bloDocgRef.collection(LOGS_COL).orderBy("createAt", "desc");
     }
-    // const logColLimeted = logsCol.startAt(startAt).limit(size);
-    const logsColDoc = await transaction.get(logsCol);
+    const logColLimeted = logsCol.limit(size);
+
+    let limitedCol;
+    if (page === 1) {
+      limitedCol = logColLimeted;
+    } else {
+      const getLimetedLog = await transaction.get(logColLimeted);
+      const { createAt: lastCreateAt } =
+        getLimetedLog.docs[getLimetedLog.docs.length * (page - 1) - 1].data();
+      limitedCol = logsCol.startAfter(lastCreateAt).limit(size);
+    }
+    const logsColDoc = await transaction.get(limitedCol);
     const data = logsColDoc.docs.map((log) => {
       const docData = log.data() as Omit<InLogDataServer, "id">;
       const returnData = {

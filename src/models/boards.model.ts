@@ -189,7 +189,6 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
     } else {
       logsCol = bloDocgRef.collection(LOGS_COL).orderBy("createAt", "desc");
     }
-    //** test */
     const logColLimeted = logsCol.limit(size);
 
     let limitedCol;
@@ -202,8 +201,6 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
       console.log("last", lastCreateAt);
       limitedCol = logsCol.startAfter(lastCreateAt).limit(size);
     }
-    //** test */
-
     const logsColDoc = await transaction.get(limitedCol);
     const data = logsColDoc.docs.map((log) => {
       const docData = log.data() as Omit<InLogDataServer, "id">;

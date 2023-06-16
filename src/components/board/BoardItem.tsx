@@ -28,7 +28,7 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
               loader={ImageLoader}
               src={item.thumbnail || NoImage}
               alt="no-image"
-              className="h-40"
+              className="object-cover h-40"
               onLoadingComplete={() => setLoading(false)}
               width={400}
               height={160}

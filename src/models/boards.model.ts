@@ -192,7 +192,14 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
     } else {
       logsCol = bloDocgRef.collection(LOGS_COL).orderBy("createAt", "desc");
     }
-    // const logColLimeted = logsCol.startAt(startAt).limit(size);
+    //** test */
+    const logColLimeted = logsCol.limit(size);
+    const testColDoc = await transaction.get(logColLimeted);
+    const { createAt: lastCreateAt } =
+      testColDoc.docs[testColDoc.docs.length - 1].data();
+    console.log("last", lastCreateAt);
+
+    //** test */
     const logsColDoc = await transaction.get(logsCol);
     const data = logsColDoc.docs.map((log) => {
       const docData = log.data() as Omit<InLogDataServer, "id">;

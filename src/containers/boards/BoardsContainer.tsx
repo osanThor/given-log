@@ -50,7 +50,7 @@ export default function BoardsContainer({ category, tag, tags }: Props) {
         <Title title={`${category} Logs`} />
         <List list={contents} />
         {loading && <ListLoading />}
-        {page < totalPage && <button onClick={()=>setPage(page + 1)}>더보기</button>}
+        {page < totalPage && <div className="flex items-center justify-center w-full py-2"><button className="px-6 py-2 text-lg font-bold text-white bg-blue-500 rounded-md hover:bg-blue-300" onClick={()=>setPage(page + 1)}>더보기</button></div>}
       </div>
       <TagsBox allTags={tags} cate={category} tag={tag} />
     </>

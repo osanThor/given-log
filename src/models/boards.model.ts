@@ -198,7 +198,6 @@ async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
       const getLimetedLog = await transaction.get(logColLimeted);
       const { createAt: lastCreateAt } =
         getLimetedLog.docs[getLimetedLog.docs.length * (page - 1) - 1].data();
-      console.log("last", lastCreateAt);
       limitedCol = logsCol.startAfter(lastCreateAt).limit(size);
     }
     const logsColDoc = await transaction.get(limitedCol);

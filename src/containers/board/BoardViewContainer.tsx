@@ -13,7 +13,7 @@ export default function BoardViewContainer({ data }: { data: InLogData }) {
       <div className="max-h-[500px] overflow-hidden">
         <Img src={data.thumbnail || NoImage} alt="log thumbnail" />
       </div>
-      <div className="relative left-0 w-full px-2 py-4 overflow-hidden bg-white rounded h-max">
+      <div className="relative left-0 w-full px-0 py-4 overflow-hidden bg-white rounded h-max md:px-2">
         <div className="flex flex-col gap-1 mb-4 border-b border-gray-200">
           <div className="text-sm font-bold text-green-500 uppercase">
             {data.category}

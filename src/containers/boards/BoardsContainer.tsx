@@ -6,6 +6,7 @@ import TagsBox from "@/components/board/TagsBox";
 import Title from "@/components/common/Title";
 import { InGetLogProps, getListProps } from "@/interfaces/in_Boards";
 import client from "@/lib/api/client";
+import { getList } from "@/services/boards_service";
 import { useState } from "react";
 import { useQuery } from "react-query";
 
@@ -22,24 +23,19 @@ export default function BoardsContainer({ category, tag, tags }: Props) {
 
   const getBoardsKey = ["boardsList", category, tag, page];
 
-  const { isLoading:loading } = useQuery(
+  const { isLoading: loading } = useQuery(
     getBoardsKey,
-    async () =>
-      await client.get<getListProps>(
-        `/api/boards/getList?cate=${category}&page=${page}${
-          tag ? `&tag=${tag}` : ""
-        }`
-      ),
+    async () => await getList(category, page, tag),
     {
       keepPreviousData: true,
       refetchOnWindowFocus: false,
       onSuccess: (data) => {
-        setTotalPage(data.data.totalPages);
+        setTotalPage(data.totalPages);
         if (page === 1) {
-          setContents([...data.data.contents]);
+          setContents([...data.contents]);
           return;
         }
-        setContents((prev) => [...prev, ...data.data.contents]);
+        setContents((prev) => [...prev, ...data.contents]);
       },
     }
   );
@@ -50,7 +46,16 @@ export default function BoardsContainer({ category, tag, tags }: Props) {
         <Title title={`${category} Logs`} />
         <List list={contents} />
         {loading && <ListLoading />}
-        {page < totalPage && <div className="flex items-center justify-center w-full py-2"><button className="px-6 py-2 text-lg font-bold text-white bg-blue-500 rounded-md hover:bg-blue-300" onClick={()=>setPage(page + 1)}>더보기</button></div>}
+        {page < totalPage && (
+          <div className="flex items-center justify-center w-full py-2">
+            <button
+              className="px-6 py-2 text-lg font-bold text-white bg-blue-500 rounded-md hover:bg-blue-300"
+              onClick={() => setPage(page + 1)}
+            >
+              더보기
+            </button>
+          </div>
+        )}
       </div>
       <TagsBox allTags={tags} cate={category} tag={tag} />
     </>

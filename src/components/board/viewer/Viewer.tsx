@@ -11,7 +11,7 @@ export interface ViewerProps {
 export default function Viewer({ content }: ViewerProps) {
   return (
     <div className="ql-snow">
-      <div className="ql-editor">
+      <div className="px-0 ql-editor">
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </div>
     </div>

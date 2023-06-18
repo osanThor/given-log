@@ -16,6 +16,12 @@ export interface InLogDataServer extends BasicProps {
   logNum: number;
 }
 
+export interface InSubProps {
+  id: string;
+  title: string;
+  thumbnail: string;
+}
+
 export interface InLogData {
   category: string;
   featured: boolean;
@@ -26,6 +32,8 @@ export interface InLogData {
   contant: string;
   createAt: string;
   logNum: number;
+  prev: InSubProps;
+  next: InSubProps;
 }
 
 export interface InGetLogProps {

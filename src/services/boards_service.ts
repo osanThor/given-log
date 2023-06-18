@@ -1,5 +1,4 @@
 import { InGetLogProps, InLogData, getListProps } from "@/interfaces/in_Boards";
-import client from "@/lib/api/client";
 import { cache } from "react";
 
 const BASEURL = process.env.NEXT_PUBLIC_BASE_URL || "http:localhost:3000";

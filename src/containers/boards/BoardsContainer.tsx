@@ -4,8 +4,7 @@ import List from "@/components/board/List";
 import ListLoading from "@/components/board/ListLoading";
 import TagsBox from "@/components/board/TagsBox";
 import Title from "@/components/common/Title";
-import { InGetLogProps, getListProps } from "@/interfaces/in_Boards";
-import client from "@/lib/api/client";
+import { InGetLogProps } from "@/interfaces/in_Boards";
 import { getList } from "@/services/boards_service";
 import { useState } from "react";
 import { useQuery } from "react-query";
@@ -23,13 +22,14 @@ export default function BoardsContainer({ category, tag, tags }: Props) {
 
   const getBoardsKey = ["boardsList", category, tag, page];
 
-  const { isLoading: loading } = useQuery(
+  const { isFetching, isError } = useQuery(
     getBoardsKey,
     async () => await getList(category, page, tag),
     {
       keepPreviousData: true,
       refetchOnWindowFocus: false,
       onSuccess: (data) => {
+        console.log(1);
         setTotalPage(data.totalPages);
         if (page === 1) {
           setContents([...data.contents]);
@@ -44,8 +44,13 @@ export default function BoardsContainer({ category, tag, tags }: Props) {
     <>
       <div className="order-2 flex-[3] w-full md:w-auto md:order-1">
         <Title title={`${category} Logs`} />
+        {isError && (
+          <>
+            <p className="py-4 text-center">에러가 발생했습니다😭</p>
+          </>
+        )}
         <List list={contents} />
-        {loading && <ListLoading />}
+        {isFetching && <ListLoading />}
         {page < totalPage && (
           <div className="flex items-center justify-center w-full py-2">
             <button

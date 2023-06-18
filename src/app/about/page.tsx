@@ -1,14 +1,20 @@
-"use client";
-import Lottie from "lottie-react";
-import developerAnimation from "@/data/lottie/developer.json";
 import Profile from "@/components/common/Profile";
+import DeveloperLottie from "@/components/ui/Lottie/DeveloperLottie";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: `About Me!`,
+    description: "FrontEnd Developer Given Logs | About Me",
+  };
+}
 
 export default function aboutPage() {
   return (
     <div className="flex flex-col items-center gap-10">
       <Profile />
       <div className="flex flex-col items-center justify-center w-full gap-4 px-4 py-10 rounded bg-gray-50 md:flex-row">
-        <Lottie animationData={developerAnimation} />
+        <DeveloperLottie />
         <div className="flex flex-col items-center gap-4 px-4 py-10 rounded bg-gray-50">
           <div className="flex flex-col items-center gap-2">
             <h2 className="text-lg font-bold">Who am I?</h2>

@@ -20,6 +20,7 @@ export async function generateMetadata({
   }
   return {
     title: `${category} 이야기`,
+    description: "FrontEnd Developer Given Logs",
   };
 }
 

@@ -4,7 +4,7 @@ import List from "@/components/board/List";
 import ListLoading from "@/components/board/ListLoading";
 import TagsBox from "@/components/board/TagsBox";
 import Title from "@/components/common/Title";
-import { InGetLogProps, getListProps } from "@/interfaces/in_Boards";
+import { InGetLogProps } from "@/interfaces/in_Boards";
 import { getList } from "@/services/boards_service";
 import { useState } from "react";
 import { useQuery } from "react-query";
@@ -22,7 +22,7 @@ export default function BoardsContainer({ category, tag, tags }: Props) {
 
   const getBoardsKey = ["boardsList", category, tag, page];
 
-  const {  isFetching, isError, error } = useQuery(
+  const { isFetching, isError } = useQuery(
     getBoardsKey,
     async () => await getList(category, page, tag),
     {

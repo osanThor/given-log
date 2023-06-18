@@ -77,7 +77,6 @@ async function getFeaturedList() {
   const docsQuerySnapshot = await blogRef
     .where("category", "in", [DEV_DOC, LIFE_DOC])
     .get();
-  // 각 문서에서 "logs" 하위 컬렉션에서 createAt 기준으로 최신글 8개 가져오기
   for (const doc of docsQuerySnapshot.docs) {
     const logsRef = blogRef.doc(doc.id).collection(LOGS_COL);
     const logsQuerySnapshot = await logsRef
@@ -97,7 +96,6 @@ async function getFeaturedList() {
       });
     });
   }
-  // 최신글 8개만 반환
   logs
     .sort((a, b) => b.createAt.toMillis() - a.createAt.toMillis())
     .slice(0, 8);
@@ -119,7 +117,6 @@ async function getLatestList() {
   const docsQuerySnapshot = await blogRef
     .where("category", "in", [DEV_DOC, LIFE_DOC])
     .get();
-  // 각 문서에서 "logs" 하위 컬렉션에서 createAt 기준으로 최신글 8개 가져오기
   for (const doc of docsQuerySnapshot.docs) {
     const logsRef = blogRef.doc(doc.id).collection(LOGS_COL);
     const logsQuerySnapshot = await logsRef
@@ -139,7 +136,6 @@ async function getLatestList() {
       });
     });
   }
-  // 최신글 8개만 반환
   logs
     .sort((a, b) => b.createAt.toMillis() - a.createAt.toMillis())
     .slice(0, 8);
@@ -155,7 +151,6 @@ async function getLatestList() {
 }
 
 async function getList({ category, page = 1, size = 8, tag }: InGetListProps) {
-  /** TODO: tag list 요청시 startAt 기준 수정 */
   const bloDocgRef = Firestore.collection(BLOG_COL).doc(category);
   const dataList = await Firestore.runTransaction(async (transaction) => {
     const blogDoc = await transaction.get(bloDocgRef);
@@ -252,6 +247,8 @@ async function getAllTags({ category }: { category: string }) {
 
 async function getItem({ id }: { id: string }) {
   const blogRef = Firestore.collection(BLOG_COL);
+  const devLogsRef = blogRef.doc(DEV_DOC).collection(LOGS_COL);
+  const lifeLogsRef = blogRef.doc(LIFE_DOC).collection(LOGS_COL);
   const devRef = blogRef.doc(DEV_DOC).collection(LOGS_COL).doc(id);
   const lifeRef = blogRef.doc(LIFE_DOC).collection(LOGS_COL).doc(id);
   const data = await Firestore.runTransaction(async (transaction) => {
@@ -265,17 +262,79 @@ async function getItem({ id }: { id: string }) {
     }
     if (devRefDoc.exists) {
       const devLogData = devRefDoc.data() as Omit<InLogDataServer, "id">;
+      const { logNum } = devLogData;
+      //prev
+      const prevRef = devLogsRef.where("logNum", ">", logNum);
+      const prevCol = await transaction.get(prevRef);
+      let prevDoc = null;
+      let nextDoc = null;
+      //next
+      const nextRef = devLogsRef
+        .where("logNum", "<", logNum)
+        .orderBy("logNum", "desc");
+      const nextCol = await transaction.get(nextRef);
+      if (prevCol.docs[0]?.exists) {
+        const { title, thumbnail } = prevCol.docs[0].data() as InLogDataServer;
+        const logDoc = prevCol.docs[0];
+        prevDoc = {
+          id: logDoc.id,
+          title,
+          thumbnail,
+        };
+      }
+      if (nextCol.docs[0]?.exists) {
+        const { title, thumbnail } = nextCol.docs[0].data() as InLogDataServer;
+        const logDoc = nextCol.docs[0];
+        nextDoc = {
+          id: logDoc.id,
+          title,
+          thumbnail,
+        };
+      }
       const returnData = {
         ...devLogData,
         createAt: devLogData.createAt.toDate().toISOString(),
+        prev: prevDoc || null,
+        next: nextDoc || null,
       } as InLogData;
       return returnData;
     }
     if (lifeRefDoc.exists) {
       const lifeLogData = lifeRefDoc.data() as Omit<InLogDataServer, "id">;
+      const { logNum } = lifeLogData;
+      //prev
+      const prevRef = lifeLogsRef.where("logNum", ">", logNum);
+      const prevCol = await transaction.get(prevRef);
+      let prevDoc = null;
+      let nextDoc = null;
+      //next
+      const nextRef = lifeLogsRef
+        .where("logNum", "<", logNum)
+        .orderBy("logNum", "desc");
+      const nextCol = await transaction.get(nextRef);
+      if (prevCol.docs[0]?.exists) {
+        const { title, thumbnail } = prevCol.docs[0].data() as InLogDataServer;
+        const logDoc = prevCol.docs[0];
+        prevDoc = {
+          id: logDoc.id,
+          title,
+          thumbnail,
+        };
+      }
+      if (nextCol.docs[0]?.exists) {
+        const { title, thumbnail } = nextCol.docs[0].data() as InLogDataServer;
+        const logDoc = nextCol.docs[0];
+        nextDoc = {
+          id: logDoc.id,
+          title,
+          thumbnail,
+        };
+      }
       const returnData = {
         ...lifeLogData,
         createAt: lifeLogData.createAt.toDate().toISOString(),
+        prev: prevDoc || null,
+        next: nextDoc || null,
       } as InLogData;
       return returnData;
     }

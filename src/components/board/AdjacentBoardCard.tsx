@@ -2,7 +2,7 @@ import { InSubProps } from "@/interfaces/in_Boards";
 import Image from "next/image";
 import Link from "next/link";
 import NoImage from "../../../public/assets/images/noimage.png";
-import { RiArrowLeftSFill,RiArrowRightSFill } from "react-icons/ri";
+import { RiArrowLeftSFill, RiArrowRightSFill } from "react-icons/ri";
 
 type Props = {
   board: InSubProps;
@@ -24,7 +24,7 @@ export default function AdjacentBoardCard({
         width={150}
         height={100}
       />
-      <div className="absolute z-10 flex items-center justify-center w-full gap-2 font-bold transition -translate-x-1/2 -translate-y-1/2 text-neutral-300 group-hover:text-white top-1/2 left-1/2 ">
+      <div className="absolute z-10 flex items-center justify-center w-full gap-2 px-2 font-bold transition -translate-x-1/2 -translate-y-1/2 text-neutral-300 group-hover:text-white top-1/2 left-1/2 ">
         {type === "prev" && (
           <RiArrowLeftSFill className="transition group-hover:text-2xl" />
         )}

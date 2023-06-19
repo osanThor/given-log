@@ -7,6 +7,7 @@ interface InAuthContext {
   user: InAuthUser | null;
   isAdmin: boolean;
   loading: boolean;
+  loginByGithub: () => void;
   loginByEmail: ({ email, password }: InEmailLoginPayload) => void;
   logout: () => void;
 }
@@ -15,6 +16,7 @@ const AuthContext = createContext<InAuthContext>({
   user: null,
   loading: true,
   isAdmin: false,
+  loginByGithub: async () => ({ user: null, credential: null }),
   loginByEmail: async () => ({ user: null, credential: null }),
   logout: () => {},
 });

@@ -2,7 +2,12 @@ import { InCeckAdmin } from "@/interfaces/in_Admin";
 import { InAuthUser, InEmailLoginPayload } from "@/interfaces/in_Auth";
 import FirebaseClient from "@/services/firebase_client";
 import axios, { AxiosResponse } from "axios";
-import { User, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  GithubAuthProvider,
+  User,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { useEffect, useState } from "react";
 
 const { Auth } = FirebaseClient.getInstance();
@@ -11,6 +16,18 @@ export default function useFirebaseAuth() {
   const [user, setUser] = useState<InAuthUser | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
+
+  async function loginByGithub() {
+    const provider = new GithubAuthProvider();
+    try {
+      const { user } = await signInWithPopup(Auth, provider);
+      if (user) {
+        console.log("로그인", user);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   async function loginByEmail({ email, password }: InEmailLoginPayload) {
     try {
@@ -64,6 +81,7 @@ export default function useFirebaseAuth() {
   return {
     user,
     loading,
+    loginByGithub,
     loginByEmail,
     logout,
     isAdmin,

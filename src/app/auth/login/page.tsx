@@ -1,3 +1,5 @@
+import AuthLoginContainer from "@/containers/auth/AuthLoginContainer";
+
 export default function AuthLoginPage() {
-  return <div>page</div>;
+  return <AuthLoginContainer />;
 }

@@ -44,11 +44,13 @@ export const getTags = cache(
   }
 );
 
-export const getLog = cache(async (id: string): Promise<InLogData> => {
-  const res = await fetch(`${BASEURL}/api/boards/getItem?id=${id}`);
+export const getLog = async (id: string): Promise<InLogData> => {
+  const res = await fetch(`${BASEURL}/api/boards/getItem?id=${id}`, {
+    cache: "no-store",
+  });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
   const data = await res.json();
   return data;
-});
+};

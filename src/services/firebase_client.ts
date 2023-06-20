@@ -6,6 +6,11 @@ interface FirebaseClientConfig {
   authDomain: string;
   projectId: string;
 }
+const firebaseConfig: FirebaseClientConfig = {
+  apiKey: process.env.NEXT_PUBLIC_APIKEY || "",
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_HOST || "",
+  projectId: process.env.projectId || "",
+};
 
 export default class FirebaseClient {
   private static instance: FirebaseClient;
@@ -14,11 +19,6 @@ export default class FirebaseClient {
 
   public constructor() {
     const apps = getApps();
-    const firebaseConfig: FirebaseClientConfig = {
-      apiKey: process.env.NEXT_PUBLIC_APIKEY || "",
-      authDomain: process.env.FIREBASE_AUTH_HOST || "",
-      projectId: process.env.projectId || "",
-    };
     if (apps.length === 0) {
       initializeApp(firebaseConfig);
     }

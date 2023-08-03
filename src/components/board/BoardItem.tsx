@@ -33,7 +33,6 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
               onLoadingComplete={() => setLoading(false)}
               width={400}
               height={160}
-              priority
             />
             {loading && (
               <Skeleton

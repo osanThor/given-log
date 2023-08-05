@@ -9,9 +9,11 @@ import ReactQuill from "react-quill";
 import { BasicProps } from "@/interfaces/in_Boards";
 import { useRouter } from "next/navigation";
 import client from "@/lib/api/client";
+import BgLoading from "@/components/common/BgLoading";
 export default function BoardWriteContainer() {
   const router = useRouter();
 
+  const [loading, setLoading] = useState<boolean>(false)
   const [category, setCategory] = useState<string>("dev");
   const [featured, setFeatured] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
@@ -78,6 +80,7 @@ export default function BoardWriteContainer() {
     if (!contant) return alert("내용 써야지!");
 
     try {
+      setLoading(true)
       const body: BasicProps = {
         category,
         featured,
@@ -88,7 +91,7 @@ export default function BoardWriteContainer() {
         contant,
       };
       const resp = await client.post("/api/boards/post", body);
-
+      
       if (resp) {
         alert("작성 완료");
         router.push("/admin/boards");
@@ -96,12 +99,14 @@ export default function BoardWriteContainer() {
     } catch (err) {
       console.error(err);
       alert(err);
+    }finally{
+      setLoading(false)
     }
   };
 
   return (
     <div className="w-full">
-      {/** TODO: FEATURED, TITLE,SUBTITLE,TAGS, THUMBNAIL, CONTANT,  POST  */}
+      {loading && <BgLoading />}
       <div className="px-2 py-4 mb-4 font-bold text-gray-800 border-b border-gray-300">
         글쓰기
       </div>

@@ -21,7 +21,7 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
     setMounted(true);
   }, []);
   return (
-    <div className="overflow-hidden transition-transform border border-gray-300 rounded-lg shadow-lg h-max max-h-96">
+    <div className="overflow-hidden group transition-transform border border-gray-300 rounded-lg shadow-lg h-max max-h-96">
       <Link href={`/board/${item.id}`}>
         {item && (
           <div className="relative max-h-40">
@@ -34,6 +34,7 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
               width={400}
               height={160}
             />
+            <div className="transition-all opacity-0 group-hover:opacity-100 absolute top-0 left-0 w-full h-full bg-black/40" />
             {loading && (
               <Skeleton
                 height={160}
@@ -47,12 +48,12 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
           <span className="mb-2 text-xs font-bold text-green-500 uppercase">
             {item?.category || <Skeleton width={70} />}
           </span>
-          <h1 className="w-full mb-1 font-bold truncate">
+          <h2 className="w-full mb-1 font-bold truncate">
             {item?.title || <Skeleton />}
-          </h1>
-          <h1 className="w-full mb-2 text-sm text-gray-400 truncate">
+          </h2>
+          <h3 className="w-full mb-2 text-sm text-gray-400 truncate">
             {item?.subTitle || <Skeleton width={70} />}
-          </h1>
+          </h3>
           <div className="flex justify-between">
             <span className="text-xs text-gray-500">
               {item && mounted ? (

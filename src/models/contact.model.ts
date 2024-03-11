@@ -16,7 +16,7 @@ async function SendEmail({ from, subject, message }: EmailData) {
     to: `${process.env.NAVER_AUTH_USER}@naver.com`,
     subject: `[GIVEN-LOG] ${subject}`,
     html: `
-      <h1>${subject}</h1>
+      <h2>${subject}</h2>
       <p>보낸사람 : ${from}</p>
       <div>${message}</div>
       `,

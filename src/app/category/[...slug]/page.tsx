@@ -2,6 +2,8 @@ import { getTags } from "@/services/boards_service";
 import { Metadata } from "next";
 import BoardsContainer from "@/containers/boards/BoardsContainer";
 
+export const dynamic = "force-dynamic";
+
 type Props = {
   params: {
     slug: string | Array<string>;

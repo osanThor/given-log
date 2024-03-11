@@ -29,7 +29,6 @@ export default function BoardsContainer({ category, tag, tags }: Props) {
       keepPreviousData: true,
       refetchOnWindowFocus: false,
       onSuccess: (data) => {
-        console.log(1);
         setTotalPage(data.totalPages);
         if (page === 1) {
           setContents([...data.contents]);

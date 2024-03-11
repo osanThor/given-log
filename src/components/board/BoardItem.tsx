@@ -21,7 +21,7 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
     setMounted(true);
   }, []);
   return (
-    <div className="overflow-hidden transition-transform border border-gray-300 rounded-lg shadow-lg h-max max-h-96 hover:translate-y-2">
+    <div className="overflow-hidden transition-transform border border-gray-300 rounded-lg shadow-lg h-max max-h-96">
       <Link href={`/board/${item.id}`}>
         {item && (
           <div className="relative max-h-40">
@@ -43,7 +43,7 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
             )}
           </div>
         )}
-        <div className="px-2 py-4">
+        <div className="px-2 pt-2 pb-4">
           <span className="mb-2 text-xs font-bold text-green-500 uppercase">
             {item?.category || <Skeleton width={70} />}
           </span>

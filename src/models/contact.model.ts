@@ -21,7 +21,7 @@ async function SendEmail({ from, subject, message }: EmailData) {
       <div>${message}</div>
       `,
   };
-
+  console.log(mailData);
   const data = await transport.sendMail(mailData);
   return data;
 }

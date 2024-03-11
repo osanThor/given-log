@@ -4,6 +4,8 @@ import Title from "@/components/common/Title";
 import List from "@/components/board/List";
 import SlideList from "@/components/board/SlideList";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const latestData = getLatestList();
   const featuredData = getFeaturedList();

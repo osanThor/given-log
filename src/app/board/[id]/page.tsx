@@ -2,6 +2,8 @@ import BoardViewContainer from "@/containers/board/BoardViewContainer";
 import { getLog } from "@/services/boards_service";
 import { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   params: { id: string };
 }

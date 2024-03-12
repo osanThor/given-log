@@ -40,7 +40,7 @@ export default function Header() {
   };
   return (
     <>
-      <header className="fixed top-0 left-0 z-50 flex items-center justify-center w-full md:px-4 py-3 bg-white border-b-2 h-14">
+      <header className="fixed top-0 left-0 z-50 flex items-center justify-center w-full px-2 md:px-4 py-3 bg-white border-b-2 h-14">
         <div className="container flex items-center justify-between ">
           <h1 className="text-xl font-bold text-blue-500">
             <Link href={"/"}>{"GIVEN'S LOG"}</Link>

@@ -11,11 +11,11 @@ import { v4 as uuid } from "uuid";
 
 export default function SlideList({ list }: { list: Array<any> }) {
   return (
-    <div className="w-full py-2 mb-10 ">
+    <div className="w-full h-full py-2 mb-10">
       <Swiper
         slidesPerView={4}
         spaceBetween={16}
-        className="w-full !py-6 mySwiper min-h-max"
+        className="w-full h-full !py-6 mySwiper"
         breakpoints={{
           0: {
             slidesPerView: 1,
@@ -31,14 +31,14 @@ export default function SlideList({ list }: { list: Array<any> }) {
           },
         }}
         autoplay={{
-          delay: 3000,
+          delay: 5000,
           disableOnInteraction: false,
         }}
         loop={true}
         modules={[Autoplay]}
       >
         {list.map((el) => (
-          <SwiperSlide key={uuid()} className="max-w-max">
+          <SwiperSlide key={uuid()} className="max-w-full h-full flex">
             <BoardItem item={el} />
           </SwiperSlide>
         ))}

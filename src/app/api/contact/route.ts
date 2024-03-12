@@ -9,6 +9,7 @@ export async function POST(req: Request) {
     if (!from || !subject || !message) {
       throw new BadReqError("이메일 form 누락");
     }
+
     await ContactModel.SendEmail({ from, subject, message });
     return NextResponse.json({ result: "SUCCESS" });
   } catch (err) {

@@ -20,10 +20,10 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
     setMounted(true);
   }, []);
   return (
-    <div className="overflow-hidden group transition-transform border border-gray-300 rounded-lg shadow-lg h-max max-h-96">
-      <Link href={`/board/${item.id}`}>
+    <div className="overflow-hidden group transition-transform border border-gray-300 rounded-lg shadow-lg h-ful max-h-96">
+      <Link className="flex-col flex w-full h-full" href={`/board/${item.id}`}>
         {item && (
-          <div className="relative max-h-40 overflow-hidden flex items-center justify-center">
+          <div className="relative max-h-[calc(100%-120px)] h-full min-h-[calc(100%-120px)] overflow-hidden">
             <Image
               loader={ImageLoader}
               src={item.thumbnail || "/assets/images/noimage.png"}
@@ -33,7 +33,7 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
               width={"400"}
               height={160}
               unoptimized
-              style={{ width: "100%", height: "auto" }}
+              style={{ width: "100%", minHeight: "100%", height: "100%" }}
             />
             <div className="transition-all opacity-0 group-hover:opacity-100 absolute top-0 left-0 w-full h-full bg-black/40" />
             {loading && (
@@ -45,7 +45,7 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
             )}
           </div>
         )}
-        <div className="px-2 pt-2 pb-4">
+        <div className="px-2 pt-2 pb-4 flex-1">
           <span className="mb-2 text-xs font-bold text-green-500 uppercase">
             {item?.category || <Skeleton width={70} />}
           </span>

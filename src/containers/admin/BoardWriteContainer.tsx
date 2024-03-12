@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import uuid from "react-uuid";
+import { v4 as uuid } from "uuid";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Editor from "@/components/admin/boards/Editor";
 import { CldImage, CldUploadWidget } from "next-cloudinary";
@@ -13,7 +13,7 @@ import BgLoading from "@/components/common/BgLoading";
 export default function BoardWriteContainer() {
   const router = useRouter();
 
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
   const [category, setCategory] = useState<string>("dev");
   const [featured, setFeatured] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
@@ -80,7 +80,7 @@ export default function BoardWriteContainer() {
     if (!contant) return alert("내용 써야지!");
 
     try {
-      setLoading(true)
+      setLoading(true);
       const body: BasicProps = {
         category,
         featured,
@@ -91,7 +91,7 @@ export default function BoardWriteContainer() {
         contant,
       };
       const resp = await client.post("/api/boards/post", body);
-      
+
       if (resp) {
         alert("작성 완료");
         router.push("/admin/boards");
@@ -99,8 +99,8 @@ export default function BoardWriteContainer() {
     } catch (err) {
       console.error(err);
       alert(err);
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 

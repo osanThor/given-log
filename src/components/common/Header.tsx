@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { GoThreeBars, GoX } from "react-icons/go";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/auth.context";
+import { v4 as uuid } from "uuid";
 
 const MENUS = [
   {
@@ -59,7 +60,7 @@ export default function Header() {
                 {MENUS.map((menu) => {
                   const samePath = pathname.startsWith(menu.href);
                   return (
-                    <li key={menu.href}>
+                    <li key={uuid()}>
                       <Link
                         className={classNames(
                           "font-medium transition-colors hover:text-blue-400",
@@ -94,6 +95,7 @@ export default function Header() {
                   const samePath = pathname.startsWith(menu.href);
                   return (
                     <Link
+                      key={uuid()}
                       className={classNames(
                         "font-medium transition-colors hover:text-blue-400",
                         {

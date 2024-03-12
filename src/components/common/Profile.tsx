@@ -5,7 +5,12 @@ export default function Profile() {
   return (
     <div className="flex flex-col items-center w-full gap-1 py-5 border-b border-gray-200">
       <div className="relative w-[100px] h-[100px] overflow-hidden border border-gray-300 rounded-full">
-        <Img src="/assets/images/profile.png" alt="Rounded avatar" />
+        <Img
+          src="/assets/images/profile.png"
+          alt="Rounded avatar"
+          sizes="500"
+          unoptimized
+        />
       </div>
       <p>Hi! My Name is JunYoung</p>
       <Link

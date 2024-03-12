@@ -5,7 +5,7 @@ import Container from "@/components/common/Container";
 import { Metadata } from "next";
 import Footer from "@/components/common/Footer";
 import { AuthProvider } from "@/contexts/auth.context";
-import ReactQueryProvider from "./ReactQuery";
+import ReactQueryProvider from "@/contexts/ReactQuery";
 
 // Font files can be colocated inside of `app`
 const pretendard = localFont({

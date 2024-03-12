@@ -1,10 +1,9 @@
 "use client";
 
 import TextareaAutosize from "react-textarea-autosize";
-import contactEmail from "@/data/lottie/contact.json";
 import { useState } from "react";
 import { postContact } from "@/services/contact_service";
-import Lottie from "lottie-react";
+import ContactLottie from "@/components/ui/Lottie/ContactLottie";
 
 export default function ContactContainer() {
   const [email, setEmail] = useState<string>("");
@@ -58,7 +57,7 @@ export default function ContactContainer() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full gap-10 md:flex-row">
-      <Lottie animationData={contactEmail} />
+      <ContactLottie />
       <div className="flex flex-col w-full gap-4 px-4 py-6">
         <div className="flex flex-col gap-2">
           <label>이메일</label>

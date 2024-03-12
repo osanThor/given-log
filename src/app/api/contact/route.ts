@@ -1,5 +1,6 @@
 import BadReqError from "@/controllers/error/bad_req_error";
 import ContactModel from "@/models/contact.model";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
@@ -8,8 +9,8 @@ export async function POST(req: Request) {
     if (!from || !subject || !message) {
       throw new BadReqError("이메일 form 누락");
     }
-    const data = await ContactModel.SendEmail({ from, subject, message });
-    return Response.json({ result: "SUCCESS" });
+    await ContactModel.SendEmail({ from, subject, message });
+    return NextResponse.json({ result: "SUCCESS" });
   } catch (err) {
     console.error("CONTACT ERROR", err);
   }

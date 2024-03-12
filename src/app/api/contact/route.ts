@@ -5,6 +5,8 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
+    const body = await req.json();
+    console.log("body", body);
     const { from, subject, message } = (await req.json()) as EmailData;
     if (!from || !subject || !message) {
       throw new BadReqError("이메일 form 누락");

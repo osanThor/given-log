@@ -2,8 +2,7 @@
 
 import { InLogData } from "@/interfaces/in_Boards";
 import Moment from "react-moment";
-import NoImage from "../../../public/assets/images/noimage.png";
-import uuid from "react-uuid";
+import { v4 as uuid } from "uuid";
 import Img from "@/components/common/Img";
 import Viewer from "@/components/board/viewer/Viewer";
 import AdjacentBoardCard from "@/components/board/AdjacentBoardCard";
@@ -14,7 +13,12 @@ export default function BoardViewContainer({ data }: { data: InLogData }) {
   return (
     <div className="relative w-full overflow-hidden rounded max-h-max">
       <div className="max-h-[500px] overflow-hidden">
-        <Img src={thumbnail || NoImage} alt="log thumbnail" />
+        <Img
+          src={thumbnail || "/assets/images/noimage.png"}
+          alt="log thumbnail"
+          unoptimized
+          priority
+        />
       </div>
       <div className="relative left-0 w-full px-0 py-4 overflow-hidden bg-white rounded h-max md:px-2">
         <div className="flex flex-col gap-1 mb-4 border-b border-gray-200">

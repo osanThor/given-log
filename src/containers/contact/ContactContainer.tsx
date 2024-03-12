@@ -1,10 +1,10 @@
 "use client";
 
 import TextareaAutosize from "react-textarea-autosize";
-import Lottie from "lottie-react";
 import contactEmail from "@/data/lottie/contact.json";
 import { useState } from "react";
 import { postContact } from "@/services/contact_service";
+import Lottie from "lottie-react";
 
 export default function ContactContainer() {
   const [email, setEmail] = useState<string>("");
@@ -42,7 +42,8 @@ export default function ContactContainer() {
       if (!subject) return alert("성함을 입력해주세요");
       if (!message) return alert("메세지를 입력해주세요");
 
-      const result = await postContact({ from: email, subject, message });
+      const body = { from: email, subject, message };
+      const result = await postContact(body);
       if (result.result === "SUCCESS") {
         alert("전송이 완료됐습니다");
         setEmail("");

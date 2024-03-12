@@ -3,7 +3,7 @@
 import classNames from "classnames";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import uuid from "react-uuid";
+import { v4 as uuid } from "uuid";
 
 const TagsBox = ({
   allTags,

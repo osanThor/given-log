@@ -1,4 +1,4 @@
-import uuid from "react-uuid";
+import { v4 as uuid } from "uuid";
 import BoardSkeletonItem from "./BoardSkeletonItem";
 
 const arr = [1, 2, 3, 4];

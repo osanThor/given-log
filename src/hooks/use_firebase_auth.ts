@@ -22,7 +22,7 @@ export default function useFirebaseAuth() {
     try {
       const { user } = await signInWithPopup(Auth, provider);
       if (user) {
-        console.log("로그인", user);
+        console.log(user);
       }
     } catch (err) {
       console.error(err);

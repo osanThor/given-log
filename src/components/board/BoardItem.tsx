@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import NoImage from "../../../public/assets/images/noimage.png";
 import Link from "next/link";
 import { InGetLogProps } from "@/interfaces/in_Boards";
 import Skeleton from "react-loading-skeleton";
@@ -24,15 +23,17 @@ const BoardItem = ({ item }: { item: InGetLogProps }) => {
     <div className="overflow-hidden group transition-transform border border-gray-300 rounded-lg shadow-lg h-max max-h-96">
       <Link href={`/board/${item.id}`}>
         {item && (
-          <div className="relative max-h-40">
+          <div className="relative max-h-40 overflow-hidden flex items-center justify-center">
             <Image
               loader={ImageLoader}
-              src={item.thumbnail || NoImage}
+              src={item.thumbnail || "/assets/images/noimage.png"}
               alt="no-image"
-              className="object-cover h-40"
-              onLoadingComplete={() => setLoading(false)}
-              width={400}
+              className="object-cover"
+              onLoad={() => setLoading(false)}
+              width={"400"}
               height={160}
+              unoptimized
+              style={{ width: "100%", height: "auto" }}
             />
             <div className="transition-all opacity-0 group-hover:opacity-100 absolute top-0 left-0 w-full h-full bg-black/40" />
             {loading && (

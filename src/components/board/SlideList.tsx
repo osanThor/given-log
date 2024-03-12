@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/autoplay";
 
 import { Autoplay } from "swiper";
-import uuid from "react-uuid";
+import { v4 as uuid } from "uuid";
 
 export default function SlideList({ list }: { list: Array<any> }) {
   return (

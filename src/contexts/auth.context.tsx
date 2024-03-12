@@ -1,4 +1,5 @@
 "use client";
+
 import useFirebaseAuth from "@/hooks/use_firebase_auth";
 import { InAuthUser, InEmailLoginPayload } from "@/interfaces/in_Auth";
 import { createContext, useContext } from "react";

@@ -50,6 +50,7 @@ const Editor = ({
 
   function EditorImageUpload() {
     try {
+      if (typeof document === "undefined") return;
       const input = document.createElement("input");
       input.setAttribute("type", "file");
       input.setAttribute("accept", ".gif, .jpg, .png");

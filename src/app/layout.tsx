@@ -11,6 +11,8 @@ const BASE_URL = new URL(
   process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
 );
 
+const NAVER_VERIFICATION = process.env.NAVER_SITE_VERIFICATION || "";
+
 const pretendard = localFont({
   src: [
     {
@@ -52,6 +54,11 @@ export const metadata: Metadata = {
   metadataBase: BASE_URL,
   alternates: {
     canonical: "/",
+  },
+  verification: {
+    other: {
+      "naver-site-verification": NAVER_VERIFICATION,
+    },
   },
   icons: {
     icon: { rel: "icon", url: "/favicon.ico", sizes: "48x48" },

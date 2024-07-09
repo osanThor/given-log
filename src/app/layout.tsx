@@ -56,44 +56,44 @@ export const metadata: Metadata = {
   icons: {
     icon: { rel: "icon", url: "/favicon.ico", sizes: "48x48" },
     apple: [
-      { rel: "", url: `${BASE_URL}/assets/images/apple-icon.png` },
+      { rel: "", url: `${BASE_URL}assets/images/apple-icon.png` },
       {
-        url: `${BASE_URL}/assets/images/apple-icon-57x57.png`,
+        url: `${BASE_URL}assets/images/apple-icon-57x57.png`,
         sizes: "57x57",
         type: "image/png",
       },
       {
-        url: `${BASE_URL}/assets/images/apple-icon-60x60.png`,
+        url: `${BASE_URL}assets/images/apple-icon-60x60.png`,
         sizes: "60x60",
         type: "image/png",
       },
       {
-        url: `${BASE_URL}/assets/images/apple-icon-76x76.png`,
+        url: `${BASE_URL}assets/images/apple-icon-76x76.png`,
         sizes: "76x76",
         type: "image/png",
       },
       {
-        url: `${BASE_URL}/assets/images/apple-icon-114x114.png`,
+        url: `${BASE_URL}assets/images/apple-icon-114x114.png`,
         sizes: "114x114",
         type: "image/png",
       },
       {
-        url: `${BASE_URL}/assets/images/apple-icon-120x120.png`,
+        url: `${BASE_URL}assets/images/apple-icon-120x120.png`,
         sizes: "120x120",
         type: "image/png",
       },
       {
-        url: `${BASE_URL}/assets/images/apple-icon-144x144.png`,
+        url: `${BASE_URL}assets/images/apple-icon-144x144.png`,
         sizes: "144x144",
         type: "image/png",
       },
       {
-        url: `${BASE_URL}/assets/images/apple-icon-152x152.png`,
+        url: `${BASE_URL}assets/images/apple-icon-152x152.png`,
         sizes: "152x152",
         type: "image/png",
       },
       {
-        url: `${BASE_URL}/assets/images/apple-icon-180x180.png`,
+        url: `${BASE_URL}assets/images/apple-icon-180x180.png`,
         sizes: "180x180",
         type: "image/png",
       },
@@ -101,7 +101,7 @@ export const metadata: Metadata = {
     other: [
       {
         rel: "apple-touch-icon-precomposed",
-        url: `${BASE_URL}/assets/images/apple-icon-precomposed.png`,
+        url: `${BASE_URL}assets/images/apple-icon-precomposed.png`,
         type: "image/png",
       },
     ],
@@ -113,12 +113,12 @@ export const metadata: Metadata = {
     siteName: "Given's log",
     images: [
       {
-        url: `${BASE_URL}/assets/images/op_image.png`,
+        url: `${BASE_URL}assets/images/op_image.png`,
         width: 800,
         height: 600,
       },
       {
-        url: `${BASE_URL}/assets/images/op_image.png`,
+        url: `${BASE_URL}assets/images/op_image.png`,
         width: 1800,
         height: 1600,
         alt: "Given's log",

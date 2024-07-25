@@ -14,7 +14,7 @@ export default function Footer() {
         <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
           <li>
             <Link
-              href="https://my-works-app.vercel.app/"
+              href="https://www.given-log.com"
               target="_blank"
               className="mr-4 hover:underline md:mr-6"
             >

@@ -1,12 +1,13 @@
 import Profile from "@/components/common/Profile";
 import DeveloperLottie from "@/components/ui/Lottie/DeveloperLottie";
+import { getMetadata } from "@/utils/getMetadata";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
+  return getMetadata({
     title: `About Me!`,
     description: "FrontEnd Developer Given Logs | About Me",
-  };
+  });
 }
 
 export default function aboutPage() {

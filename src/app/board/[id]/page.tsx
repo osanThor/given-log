@@ -1,5 +1,6 @@
 import BoardViewContainer from "@/containers/board/BoardViewContainer";
 import { getLog } from "@/services/boards_service";
+import { getMetadata } from "@/utils/getMetadata";
 import { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
@@ -11,10 +12,10 @@ export async function generateMetadata({
   params: { id },
 }: Props): Promise<Metadata> {
   const { title, subTitle } = await getLog(id);
-  return {
+  return getMetadata({
     title,
     description: subTitle,
-  };
+  });
 }
 
 export default async function BoardPage({ params: { id } }: Props) {
